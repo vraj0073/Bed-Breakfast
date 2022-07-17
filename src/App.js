@@ -8,6 +8,7 @@ import {
 import Hotel from "./components/Hotel/Hotel";
 import BookRoom from "./components/Hotel/BookRoom";
 import Bookings from "./components/Hotel/Bookings";
+import Login from "./components/Auth/Login";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
             <Route exact path="/rooms" element={<Hotel />} />
             <Route exact path="/book" element={<BookRoom />} />
             <Route exact path="/bookings" element={<Bookings />} />
+            <Route exact path="/login" element={<Login />} />
             {/* Change End */}
           </Routes>
         </Router>
