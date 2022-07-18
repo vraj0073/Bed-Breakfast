@@ -17,6 +17,7 @@ import SecurityAnswer from "./components/Auth/SecurityAnswer";
 import Cipher from "./components/Auth/Cipher";
 import ForgetPassword from "./components/Auth/ForgetPassword";
 import ForgetPasswordCode from "./components/Auth/ForgetPasswordCode";
+import Booking from "./components/Kitchen/Booking";
 
 function App() {
   return (
@@ -37,7 +38,8 @@ function App() {
             <Route exact path="/Cipher" element={<Cipher />} />
             <Route exact path="/forgetpassword" element={<ForgetPassword />} />
             <Route exact path="/forgetcode" element={<ForgetPasswordCode />} />
-            {/* Change End */}
+            <Route exact path="/kitchenBooking" element={<Booking/>} />
+            
           </Routes>
         </Router>
       </div>
