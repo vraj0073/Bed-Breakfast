@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -34,38 +34,61 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-const Login = () => {
-  const location = useLocation();
+const Cipher = () => {
+    const [Cipher,setCipher] = useState();
+    const [Type,setType] = useState();
+    const [CipherAnswer,setCipherAnswer] = useState();
+    const location = useLocation();
     const history = useNavigate();
-    const [Email, setEmail] = useState('');
-    const [Password, setPassword] = useState('');
-    const validateEmail = (e) => {
-        const email = e.target.value;
-    setEmail(email)
+    var Email = location.state.EMAIL
+    var UserName = location.state.userName
+    var Answer = location.state.answer
     
-    }
-    const validatePassword = (e) => {
-        const password = e.target.value;
-    setPassword(password)
-    }
-    const validateForget =()=>{
-        history("/forgetPassword")
-    }
-    const validateSubmit = () =>{
-        axios.post('https://mpd7tsd5bd.execute-api.us-east-1.amazonaws.com/dev/api/user/login', {
+    
+    
+    useEffect(() => {
+        const myArray = ['Cipher Text', 'Plain Text'];
+        var randomType = myArray[Math.floor(Math.random()*myArray.length)];
+        setType(randomType)
+        
+        var characters = 'abcdefghijklmnopqrstuvwxyz';
+        var result = ""
+        var charactersLength = characters.length;
+        
+        for ( var i = 0; i < 5 ; i++ ) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength));
+
+        }
+        setCipher(result)
+      }, []);
+
+      const validAnswer = (e)=>{
+        const userAnswer = e.target.value;
+
+        setCipherAnswer(userAnswer)
+
+
+      }
+
+      const validSubmit = () =>{
+        axios.post('https://us-central1-serverless-csci5410.cloudfunctions.net/serverless-bb-auth', {
             email: Email,
-            password: Password
+            answer: Answer,
+            type: Type,
+            text: Cipher,
+            caesarAns: CipherAnswer,
             
           })
           .then(function (response) {
-            console.log(response);
-            var username = response.data['Username']
-            console.log(username)
+            console.log(response) ;
+            // localStorage.setItem("username",username)
+            // localStorage.setItem("email",Email)
+            alert("Home")
             
-            history("/SecurityAnswer",{state:{EMAIL: Email, userName: username}})   
           })
           .catch(function (error) {
             console.log(error);
+            
           });
     }
         
@@ -121,7 +144,7 @@ const Login = () => {
                       textDecoration: "none",
                     }}
                   >
-                    Serverless B&B Login
+                    Serverless B&B Cipher
                   </Typography>
                 </Grid>
               </Grid>
@@ -129,49 +152,29 @@ const Login = () => {
           </Box>
           <Box xs={12} sm={12} md={12}>
             <Box>
-              <Typography variant="body2">Email/Username</Typography>
+              <Typography variant="body2">Use the code given to you during registration process to solve it
+              Your {Type} is : {Cipher}</Typography>
               <TextField
                 margin="normal"
                 required
                 
                 id="email"
-                label="Email / Username"
+                label="Cipher Answer"
                 name="email"
-                onChange={(event) => {
-                  setEmail(event.target.value);
-                }}
+                onChange={validAnswer}
                 autoComplete="off"
               />
             </Box>
+            
             <br />
             <br />
             <Box>
-              <Typography variant="body2">Password</Typography>
-              <TextField
-                margin="normal"
-                required
-                type={'password'}
-                id="password"
-                label="Password"
-                name="password"
-                onChange={(event) => {
-                  setPassword(event.target.value);
-                }}
-                autoComplete="off"
-              />
-              
-            </Box>
-            <br />
-            <br />
-            <Box>
-              <Button variant="contained" color="primary" onClick={validateSubmit} sx={{ height: 40 }}>
-               login
+              <Button variant="contained" color="primary" onClick={validSubmit} sx={{ height: 40 }}>
+               Submit
               </Button>
               
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              <Button variant="contained" onClick={validateForget} color="primary" sx={{ height: 40 }}>
-                Forget Password
-              </Button>
+              
             </Box>
           </Box>
         </Grid>
@@ -196,4 +199,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Cipher;

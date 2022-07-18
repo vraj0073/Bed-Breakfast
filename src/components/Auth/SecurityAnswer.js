@@ -34,39 +34,23 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-const Login = () => {
-  const location = useLocation();
+const SecurityAnswer = () => {
+    const location = useLocation();
     const history = useNavigate();
-    const [Email, setEmail] = useState('');
-    const [Password, setPassword] = useState('');
-    const validateEmail = (e) => {
-        const email = e.target.value;
-    setEmail(email)
+    var Email = location.state.EMAIL
+    var UserName = location.state.userName
+    const [Answer, setAnswer] = useState('');
     
+    const validAnswer = (e) => {
+        const answer = e.target.value;
+        setAnswer(answer)
+
     }
-    const validatePassword = (e) => {
-        const password = e.target.value;
-    setPassword(password)
-    }
-    const validateForget =()=>{
-        history("/forgetPassword")
-    }
-    const validateSubmit = () =>{
-        axios.post('https://mpd7tsd5bd.execute-api.us-east-1.amazonaws.com/dev/api/user/login', {
-            email: Email,
-            password: Password
-            
-          })
-          .then(function (response) {
-            console.log(response);
-            var username = response.data['Username']
-            console.log(username)
-            
-            history("/SecurityAnswer",{state:{EMAIL: Email, userName: username}})   
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
+    const validSubmit = () =>{
+        alert("histrory")
+        history('/Cipher',{state:{EMAIL: Email, userName: UserName, answer: Answer }});
+        
+
     }
         
   return (
@@ -121,7 +105,7 @@ const Login = () => {
                       textDecoration: "none",
                     }}
                   >
-                    Serverless B&B Login
+                    Serverless B&B Security Question
                   </Typography>
                 </Grid>
               </Grid>
@@ -129,49 +113,25 @@ const Login = () => {
           </Box>
           <Box xs={12} sm={12} md={12}>
             <Box>
-              <Typography variant="body2">Email/Username</Typography>
+              <Typography variant="body2">Security Question :-  In which city you were born?</Typography>
               <TextField
                 margin="normal"
                 required
                 
                 id="email"
-                label="Email / Username"
+                label="Security Answer"
                 name="email"
-                onChange={(event) => {
-                  setEmail(event.target.value);
-                }}
+                onChange={validAnswer}
                 autoComplete="off"
               />
             </Box>
             <br />
             <br />
             <Box>
-              <Typography variant="body2">Password</Typography>
-              <TextField
-                margin="normal"
-                required
-                type={'password'}
-                id="password"
-                label="Password"
-                name="password"
-                onChange={(event) => {
-                  setPassword(event.target.value);
-                }}
-                autoComplete="off"
-              />
-              
-            </Box>
-            <br />
-            <br />
-            <Box>
-              <Button variant="contained" color="primary" onClick={validateSubmit} sx={{ height: 40 }}>
-               login
+              <Button variant="contained" color="primary" onClick={validSubmit} sx={{ height: 40 }}>
+               Submit
               </Button>
               
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              <Button variant="contained" onClick={validateForget} color="primary" sx={{ height: 40 }}>
-                Forget Password
-              </Button>
             </Box>
           </Box>
         </Grid>
@@ -196,4 +156,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SecurityAnswer;

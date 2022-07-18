@@ -10,8 +10,9 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import SportsFootballIcon from "@mui/icons-material/SportsFootball";
+import { useLocation, useNavigate } from "react-router-dom";
 import RoomServiceSharpIcon from "@mui/icons-material/RoomServiceSharp";
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocaleText } from "@mui/x-date-pickers/internals";
 import axios from 'axios';
 
 function Copyright(props) {
@@ -34,41 +35,49 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-const Login = () => {
-  const location = useLocation();
+const AuthenticationCode = () => {
+    const location = useLocation();
     const history = useNavigate();
-    const [Email, setEmail] = useState('');
-    const [Password, setPassword] = useState('');
-    const validateEmail = (e) => {
-        const email = e.target.value;
-    setEmail(email)
-    
+    const [Code, setCode] = useState('');
+    var Email = location.state.EMAIL
+    var UserName = location.state.userName
+    const validCode = (e)=>{
+        const code = e.target.value;
+
+        setCode(code)
+
     }
-    const validatePassword = (e) => {
-        const password = e.target.value;
-    setPassword(password)
-    }
-    const validateForget =()=>{
-        history("/forgetPassword")
+    const validateResend = () =>{
+        axios.post('https://mpd7tsd5bd.execute-api.us-east-1.amazonaws.com/dev/api/user/resendverificationcode', {
+            username: location.state.EMAIL,
+          })
+          .then(function (response) {
+            console.log(response); 
+             
+          })
+          .catch(function (error) {
+            console.log(error);
+            
+          });
+
     }
     const validateSubmit = () =>{
-        axios.post('https://mpd7tsd5bd.execute-api.us-east-1.amazonaws.com/dev/api/user/login', {
-            email: Email,
-            password: Password
+        axios.post('https://mpd7tsd5bd.execute-api.us-east-1.amazonaws.com/dev/api/user/verification', {
+            username: location.state.EMAIL,
+            code: Code
             
           })
           .then(function (response) {
             console.log(response);
-            var username = response.data['Username']
-            console.log(username)
+            history('/Security',{state:{EMAIL: Email, userName: UserName}});
             
-            history("/SecurityAnswer",{state:{EMAIL: Email, userName: username}})   
           })
           .catch(function (error) {
+            alert("Invalid Code")
             console.log(error);
           });
+
     }
-        
   return (
     <ThemeProvider theme={theme}>
       <Grid container component="main" sx={{ height: "100vh" }}>
@@ -121,7 +130,7 @@ const Login = () => {
                       textDecoration: "none",
                     }}
                   >
-                    Serverless B&B Login
+                    Serverless B&B Authentication Code
                   </Typography>
                 </Grid>
               </Grid>
@@ -129,48 +138,31 @@ const Login = () => {
           </Box>
           <Box xs={12} sm={12} md={12}>
             <Box>
-              <Typography variant="body2">Email/Username</Typography>
+              <Typography variant="body2">Authentication Code</Typography>
               <TextField
                 margin="normal"
                 required
                 
                 id="email"
-                label="Email / Username"
+                label="Authentication Code"
                 name="email"
-                onChange={(event) => {
-                  setEmail(event.target.value);
-                }}
+                onChange={validCode}
                 autoComplete="off"
               />
             </Box>
             <br />
             <br />
-            <Box>
-              <Typography variant="body2">Password</Typography>
-              <TextField
-                margin="normal"
-                required
-                type={'password'}
-                id="password"
-                label="Password"
-                name="password"
-                onChange={(event) => {
-                  setPassword(event.target.value);
-                }}
-                autoComplete="off"
-              />
-              
-            </Box>
+        
             <br />
             <br />
             <Box>
               <Button variant="contained" color="primary" onClick={validateSubmit} sx={{ height: 40 }}>
-               login
+                Submit
               </Button>
               
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              <Button variant="contained" onClick={validateForget} color="primary" sx={{ height: 40 }}>
-                Forget Password
+              <Button variant="contained" color="primary" onClick={validateResend} sx={{ height: 40 }}>
+                Resend Code
               </Button>
             </Box>
           </Box>
@@ -196,4 +188,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default AuthenticationCode;
