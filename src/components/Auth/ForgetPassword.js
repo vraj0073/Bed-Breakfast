@@ -34,42 +34,28 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-const Login = () => {
-  const location = useLocation();
+const ForgetPassword = () => {
     const history = useNavigate();
-    const [Email, setEmail] = useState('');
-    const [Password, setPassword] = useState('');
+    const location = useLocation();
+    const [Email,setEmail] = useState()
     const validateEmail = (e) => {
         const email = e.target.value;
     setEmail(email)
     
     }
-    const validatePassword = (e) => {
-        const password = e.target.value;
-    setPassword(password)
-    }
-    const validateForget =()=>{
-        history("/forgetPassword")
-    }
-    const validateNew =()=>{
-      history("/")
-    }
+
     const validateSubmit = () =>{
-        axios.post('https://mpd7tsd5bd.execute-api.us-east-1.amazonaws.com/dev/api/user/login', {
+        
+        axios.post('https://mpd7tsd5bd.execute-api.us-east-1.amazonaws.com/dev/api/user/forgotpassword', {
             email: Email,
-            password: Password
             
           })
           .then(function (response) {
             console.log(response);
-            var username = response.data['Username']
-            console.log(username)
-            
-            history("/SecurityAnswer",{state:{EMAIL: Email, userName: username}})   
+            history('/forgetcode',{state:{EMAIL: Email }})
           })
           .catch(function (error) {
             console.log(error);
-            alert("Invalid Username/Email or Password")
           });
     }
         
@@ -125,7 +111,7 @@ const Login = () => {
                       textDecoration: "none",
                     }}
                   >
-                    Serverless B&B Login
+                    Serverless B&B Forget Password
                   </Typography>
                 </Grid>
               </Grid>
@@ -141,45 +127,20 @@ const Login = () => {
                 id="email"
                 label="Email / Username"
                 name="email"
-                onChange={(event) => {
-                  setEmail(event.target.value);
-                }}
+                onChange={validateEmail}
                 autoComplete="off"
               />
             </Box>
-            <br />
-            <br />
-            <Box>
-              <Typography variant="body2">Password</Typography>
-              <TextField
-                margin="normal"
-                required
-                type={'password'}
-                id="password"
-                label="Password"
-                name="password"
-                onChange={(event) => {
-                  setPassword(event.target.value);
-                }}
-                autoComplete="off"
-              />
-              
-            </Box>
+            
             <br />
             <br />
             <Box>
               <Button variant="contained" color="primary" onClick={validateSubmit} sx={{ height: 40 }}>
-               login
+               Submit
               </Button>
               
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              <Button variant="contained" onClick={validateForget} color="primary" sx={{ height: 40 }}>
-                Forget Password
-              </Button>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              <Button variant="contained" onClick={validateNew} color="primary" sx={{ height: 40 }}>
-                New User
-              </Button>
+              
             </Box>
           </Box>
         </Grid>
@@ -204,4 +165,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default ForgetPassword;

@@ -10,9 +10,9 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import SportsFootballIcon from "@mui/icons-material/SportsFootball";
+import { useLocation, useNavigate } from "react-router-dom";
 import RoomServiceSharpIcon from "@mui/icons-material/RoomServiceSharp";
-import { useLocation, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { useLocaleText } from "@mui/x-date-pickers/internals";
 
 function Copyright(props) {
   return (
@@ -34,45 +34,16 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-const Login = () => {
-  const location = useLocation();
-    const history = useNavigate();
-    const [Email, setEmail] = useState('');
-    const [Password, setPassword] = useState('');
-    const validateEmail = (e) => {
-        const email = e.target.value;
-    setEmail(email)
+const SucessPage = () => {
     
+    const location = useLocation();
+    const history = useNavigate();
+    var Email = location.state.EMAIL
+    var UserName = location.state.userName
+    var message = location.state.Message
+    const validSuccess = ()=>{
+        history('/Login');
     }
-    const validatePassword = (e) => {
-        const password = e.target.value;
-    setPassword(password)
-    }
-    const validateForget =()=>{
-        history("/forgetPassword")
-    }
-    const validateNew =()=>{
-      history("/")
-    }
-    const validateSubmit = () =>{
-        axios.post('https://mpd7tsd5bd.execute-api.us-east-1.amazonaws.com/dev/api/user/login', {
-            email: Email,
-            password: Password
-            
-          })
-          .then(function (response) {
-            console.log(response);
-            var username = response.data['Username']
-            console.log(username)
-            
-            history("/SecurityAnswer",{state:{EMAIL: Email, userName: username}})   
-          })
-          .catch(function (error) {
-            console.log(error);
-            alert("Invalid Username/Email or Password")
-          });
-    }
-        
   return (
     <ThemeProvider theme={theme}>
       <Grid container component="main" sx={{ height: "100vh" }}>
@@ -125,7 +96,7 @@ const Login = () => {
                       textDecoration: "none",
                     }}
                   >
-                    Serverless B&B Login
+                    Serverless B&B Registartion Sucessfull
                   </Typography>
                 </Grid>
               </Grid>
@@ -133,53 +104,18 @@ const Login = () => {
           </Box>
           <Box xs={12} sm={12} md={12}>
             <Box>
-              <Typography variant="body2">Email/Username</Typography>
-              <TextField
-                margin="normal"
-                required
-                
-                id="email"
-                label="Email / Username"
-                name="email"
-                onChange={(event) => {
-                  setEmail(event.target.value);
-                }}
-                autoComplete="off"
-              />
-            </Box>
-            <br />
-            <br />
-            <Box>
-              <Typography variant="body2">Password</Typography>
-              <TextField
-                margin="normal"
-                required
-                type={'password'}
-                id="password"
-                label="Password"
-                name="password"
-                onChange={(event) => {
-                  setPassword(event.target.value);
-                }}
-                autoComplete="off"
-              />
+              <Typography variant="body2">Please Take a Note of this Number {message}. It will be needed for Login purpose</Typography>
               
             </Box>
             <br />
             <br />
             <Box>
-              <Button variant="contained" color="primary" onClick={validateSubmit} sx={{ height: 40 }}>
-               login
+              <Button variant="contained" color="primary" onClick={validSuccess} sx={{ height: 40 }}>
+              Login
               </Button>
               
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              <Button variant="contained" onClick={validateForget} color="primary" sx={{ height: 40 }}>
-                Forget Password
-              </Button>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              <Button variant="contained" onClick={validateNew} color="primary" sx={{ height: 40 }}>
-                New User
-              </Button>
+              
             </Box>
           </Box>
         </Grid>
@@ -204,4 +140,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SucessPage;

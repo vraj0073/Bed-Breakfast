@@ -10,8 +10,9 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import SportsFootballIcon from "@mui/icons-material/SportsFootball";
+import { useLocation, useNavigate } from "react-router-dom";
 import RoomServiceSharpIcon from "@mui/icons-material/RoomServiceSharp";
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocaleText } from "@mui/x-date-pickers/internals";
 import axios from 'axios';
 
 function Copyright(props) {
@@ -34,45 +35,42 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-const Login = () => {
-  const location = useLocation();
+const ForgetPasswordCode = () => {
+    const location = useLocation();
     const history = useNavigate();
-    const [Email, setEmail] = useState('');
-    const [Password, setPassword] = useState('');
-    const validateEmail = (e) => {
-        const email = e.target.value;
-    setEmail(email)
-    
+    const [Code, setCode] = useState();
+    const [Password,setPassword] = useState();
+    var Email = location.state.EMAIL
+    const validCode = (e)=>{
+        const code = e.target.value;
+
+        setCode(code)
+
     }
-    const validatePassword = (e) => {
+    const validatePassword = (e) =>{
         const password = e.target.value;
-    setPassword(password)
+        setPassword(password)
+
     }
-    const validateForget =()=>{
-        history("/forgetPassword")
-    }
-    const validateNew =()=>{
-      history("/")
-    }
+    
     const validateSubmit = () =>{
-        axios.post('https://mpd7tsd5bd.execute-api.us-east-1.amazonaws.com/dev/api/user/login', {
+        axios.post('https://mpd7tsd5bd.execute-api.us-east-1.amazonaws.com/dev/api/user/confirmforgotpassword', {
             email: Email,
-            password: Password
+            password: Password,
+            code: Code
             
           })
           .then(function (response) {
             console.log(response);
-            var username = response.data['Username']
-            console.log(username)
+            history('/login');
             
-            history("/SecurityAnswer",{state:{EMAIL: Email, userName: username}})   
           })
           .catch(function (error) {
+            alert("Invalid Code")
             console.log(error);
-            alert("Invalid Username/Email or Password")
           });
+
     }
-        
   return (
     <ThemeProvider theme={theme}>
       <Grid container component="main" sx={{ height: "100vh" }}>
@@ -125,7 +123,7 @@ const Login = () => {
                       textDecoration: "none",
                     }}
                   >
-                    Serverless B&B Login
+                    Serverless B&B COnfirmation Code
                   </Typography>
                 </Grid>
               </Grid>
@@ -133,53 +131,41 @@ const Login = () => {
           </Box>
           <Box xs={12} sm={12} md={12}>
             <Box>
-              <Typography variant="body2">Email/Username</Typography>
+              <Typography variant="body2">Confirmation Code</Typography>
               <TextField
                 margin="normal"
                 required
                 
                 id="email"
-                label="Email / Username"
+                label="Confirmation Code"
                 name="email"
-                onChange={(event) => {
-                  setEmail(event.target.value);
-                }}
+                onChange={validCode}
                 autoComplete="off"
               />
-            </Box>
-            <br />
-            <br />
-            <Box>
-              <Typography variant="body2">Password</Typography>
+               <Typography variant="body2">Password</Typography>
               <TextField
                 margin="normal"
                 required
                 type={'password'}
-                id="password"
+                id="email"
                 label="Password"
-                name="password"
-                onChange={(event) => {
-                  setPassword(event.target.value);
-                }}
+                name="email"
+                onChange={validatePassword}
                 autoComplete="off"
               />
-              
             </Box>
+            <br />
+            <br />
+        
             <br />
             <br />
             <Box>
               <Button variant="contained" color="primary" onClick={validateSubmit} sx={{ height: 40 }}>
-               login
+                Submit
               </Button>
               
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              <Button variant="contained" onClick={validateForget} color="primary" sx={{ height: 40 }}>
-                Forget Password
-              </Button>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              <Button variant="contained" onClick={validateNew} color="primary" sx={{ height: 40 }}>
-                New User
-              </Button>
+            
             </Box>
           </Box>
         </Grid>
@@ -204,4 +190,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default ForgetPasswordCode;

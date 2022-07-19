@@ -13,6 +13,18 @@ import SportsFootballIcon from "@mui/icons-material/SportsFootball";
 import RoomServiceSharpIcon from "@mui/icons-material/RoomServiceSharp";
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import EditIcon from '@mui/icons-material/Edit';
+import Divider from '@mui/material/Divider';
+import ArchiveIcon from '@mui/icons-material/Archive';
+import FileCopyIcon from '@mui/icons-material/FileCopy';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import StyledEngine from "@mui/styled-engine";
+import { Select } from "@mui/material";
+
+
 
 function Copyright(props) {
   return (
@@ -34,42 +46,72 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-const Login = () => {
+
+const Booking = () => {
+
   const location = useLocation();
     const history = useNavigate();
-    const [Email, setEmail] = useState('');
-    const [Password, setPassword] = useState('');
-    const validateEmail = (e) => {
-        const email = e.target.value;
-    setEmail(email)
+    const [Menu,SetMenu]= useState()
+    const [Quantity,SetQuantity] = useState();
+    const [Time,SetTime] = useState();
+
+    const validPancake = (e) =>{
+        // const pancakes = e.target.value;
+        const { myValue } = e.currentTarget.dataset;
+    console.log(myValue)
+    SetMenu(myValue)
+        
+    }
     
+    const validOatmeal = (e) =>{
+        const { myValue } = e.currentTarget.dataset;
+    console.log(myValue)
+    SetMenu(myValue)
     }
-    const validatePassword = (e) => {
-        const password = e.target.value;
-    setPassword(password)
+    const validSandwich = (e) =>{
+        const { myValue } = e.currentTarget.dataset;
+        console.log(myValue)
+        SetMenu(myValue)
     }
-    const validateForget =()=>{
-        history("/forgetPassword")
+    const validBread = (e) =>{
+        const { myValue } = e.currentTarget.dataset;
+    console.log(myValue)
+    SetMenu(myValue)
     }
-    const validateNew =()=>{
-      history("/")
+    const validCoffee = (e) =>{
+        const { myValue } = e.currentTarget.dataset;
+    console.log(myValue)
+    SetMenu(myValue)
     }
-    const validateSubmit = () =>{
-        axios.post('https://mpd7tsd5bd.execute-api.us-east-1.amazonaws.com/dev/api/user/login', {
-            email: Email,
-            password: Password
+
+    const handleChange = (e) =>{
+        const qu = e.target.value
+        console.log(qu)
+        SetQuantity(qu)
+    }
+    const handleTime = (e) =>{
+        const time = e.target.value
+        console.log(time)
+        SetTime(time)
+    }
+
+    const validateOrder = ()=>{
+        axios.post('https://mpd7tsd5bd.execute-api.us-east-1.amazonaws.com/dev/api/kitchen', {
+            item: Menu,
+            qty: Quantity,
+            day: Time
             
           })
           .then(function (response) {
             console.log(response);
-            var username = response.data['Username']
-            console.log(username)
+            const message = response.data['message']
+            alert(message)
             
-            history("/SecurityAnswer",{state:{EMAIL: Email, userName: username}})   
+            
+               
           })
           .catch(function (error) {
             console.log(error);
-            alert("Invalid Username/Email or Password")
           });
     }
         
@@ -125,7 +167,7 @@ const Login = () => {
                       textDecoration: "none",
                     }}
                   >
-                    Serverless B&B Login
+                    Serverless B&B Menu
                   </Typography>
                 </Grid>
               </Grid>
@@ -133,53 +175,77 @@ const Login = () => {
           </Box>
           <Box xs={12} sm={12} md={12}>
             <Box>
-              <Typography variant="body2">Email/Username</Typography>
-              <TextField
-                margin="normal"
-                required
-                
-                id="email"
-                label="Email / Username"
-                name="email"
-                onChange={(event) => {
-                  setEmail(event.target.value);
-                }}
-                autoComplete="off"
-              />
-            </Box>
-            <br />
-            <br />
-            <Box>
-              <Typography variant="body2">Password</Typography>
-              <TextField
-                margin="normal"
-                required
-                type={'password'}
-                id="password"
-                label="Password"
-                name="password"
-                onChange={(event) => {
-                  setPassword(event.target.value);
-                }}
-                autoComplete="off"
-              />
+              <Typography variant="body2">Iteams Available</Typography>
+              <br></br>
+              <Typography variant="body2">pancakes - $10</Typography>
+              <Typography variant="body2">oatmeal - $4</Typography>
+              <Typography variant="body2">sandwich - $7</Typography>
+              <Typography variant="body2">coffee - $3</Typography>
+              <Typography variant="body2">bread-butter - $5</Typography>
+              
               
             </Box>
             <br />
             <br />
             <Box>
-              <Button variant="contained" color="primary" onClick={validateSubmit} sx={{ height: 40 }}>
-               login
+            <div>
+            <div style={{paddingLeft: "35%"}}>      
+        <MenuItem data-my-value={'pancakes'} onClick={validPancake} > 
+        pancakes
+        </MenuItem>
+        <MenuItem data-my-value={'oatmeal'} onClick={validOatmeal} >
+          oatmeal
+        </MenuItem>
+        <MenuItem data-my-value={'sandwich'} onClick={validSandwich} >
+          sandwich
+        </MenuItem>
+        <MenuItem data-my-value={'bread-butter'} onClick={validBread} >
+        bread-butter
+        </MenuItem>
+        <MenuItem data-my-value={'coffee'} onClick={validCoffee}>
+          coffee
+        </MenuItem>
+      
+    </div>
+    </div>
+    <div>
+    <Typography variant="body2">Quantity</Typography>
+    <Select
+    labelId="demo-simple-select-label"
+    id="demo-simple-select"
+    onChange={handleChange}
+    label="Quantity"  
+  >
+
+    <MenuItem value={1}>1</MenuItem>
+    <MenuItem value={2}>2</MenuItem>
+    <MenuItem value={3}>3</MenuItem>
+  </Select>
+    </div>
+    <div>
+    <Typography variant="body2">Scedule Time:</Typography>
+    <Select
+    labelId="demo-simple-select-label"
+    id="demo-simple-select"
+    onChange={handleTime}
+    label="Quantity"  
+  >
+
+    <MenuItem value={'today'}>Today</MenuItem>
+    <MenuItem value={'tomorrow'}>Tomorrow</MenuItem>
+
+  </Select>
+    </div>
+     </Box>
+            <br />
+            <br />
+            <Box>
+              <Button variant="contained" color="primary" onClick={validateOrder} sx={{ height: 40 }}>
+               Order
               </Button>
               
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              <Button variant="contained" onClick={validateForget} color="primary" sx={{ height: 40 }}>
-                Forget Password
-              </Button>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              <Button variant="contained" onClick={validateNew} color="primary" sx={{ height: 40 }}>
-                New User
-              </Button>
+              
             </Box>
           </Box>
         </Grid>
@@ -204,4 +270,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Booking;
