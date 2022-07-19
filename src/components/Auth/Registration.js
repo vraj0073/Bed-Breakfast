@@ -205,7 +205,6 @@ const validateSubmit = (props)=>{
               <TextField
                 margin="normal"
                 required
-                
                 id="email"
                 label="First Name"
                 name="email"
@@ -245,6 +244,7 @@ const validateSubmit = (props)=>{
                 onChange={validateEmail}
                 autoComplete="off"
               />
+              <Typography variant="body2">{Emailmessage}</Typography>
               <Typography variant="body2">Password</Typography>
               <TextField
                 margin="normal"
@@ -256,6 +256,7 @@ const validateSubmit = (props)=>{
                 onChange={validaPassword}
                 autoComplete="off"
               />
+              <Typography>{Passwordmessage}</Typography>
               <Typography variant="body2">Confirm Password</Typography>
               <TextField
                 margin="normal"
@@ -267,6 +268,7 @@ const validateSubmit = (props)=>{
                 onChange={validateConfirm}
                 autoComplete="off"
               />
+              <Typography>{Confirmmessage}</Typography>
             </Box>
            
             <br />

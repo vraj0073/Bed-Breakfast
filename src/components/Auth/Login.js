@@ -66,6 +66,7 @@ const Login = () => {
           })
           .catch(function (error) {
             console.log(error);
+            alert("Invalid Username/Email or Password")
           });
     }
         
