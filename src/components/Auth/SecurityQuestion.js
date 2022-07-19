@@ -49,15 +49,16 @@ const SecurityQuestion = () => {
     const validSubmit = () =>{
       
       // history('/Success',{state:{EMAIL: Email, userName: UserName}});
-        axios.post('https://us-central1-serverless-csci5410.cloudfunctions.net/serverless-bb-reg', {
+        axios.post('https://us-central1-serverless-csci5410.cloudfunctions.net/serverless-bb-registration', {
             email: Email,
             username: UserName,
             answer: Answer
             
           })
           .then(function (response) {
-            console.log(response);
-             history('/Success',{state:{EMAIL: Email, userName: UserName}});
+            console.log(response.data['message']);
+            var message = response.data['message']
+            history('/Sucess',{state:{EMAIL: Email, userName: UserName, Message: message}});
             
           })
           .catch(function (error) {

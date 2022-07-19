@@ -38,6 +38,9 @@ const SucessPage = () => {
     
     const location = useLocation();
     const history = useNavigate();
+    var Email = location.state.EMAIL
+    var UserName = location.state.userName
+    var message = location.state.Message
     const validSuccess = ()=>{
         history('/Login');
     }
@@ -101,7 +104,7 @@ const SucessPage = () => {
           </Box>
           <Box xs={12} sm={12} md={12}>
             <Box>
-              <Typography variant="body2">Please Take a Note of this Number. It will be needed for Login purpose</Typography>
+              <Typography variant="body2">Please Take a Note of this Number {message}. It will be needed for Login purpose</Typography>
               
             </Box>
             <br />

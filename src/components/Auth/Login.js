@@ -51,6 +51,9 @@ const Login = () => {
     const validateForget =()=>{
         history("/forgetPassword")
     }
+    const validateNew =()=>{
+      history("/")
+    }
     const validateSubmit = () =>{
         axios.post('https://mpd7tsd5bd.execute-api.us-east-1.amazonaws.com/dev/api/user/login', {
             email: Email,
@@ -172,6 +175,10 @@ const Login = () => {
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               <Button variant="contained" onClick={validateForget} color="primary" sx={{ height: 40 }}>
                 Forget Password
+              </Button>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <Button variant="contained" onClick={validateNew} color="primary" sx={{ height: 40 }}>
+                New User
               </Button>
             </Box>
           </Box>

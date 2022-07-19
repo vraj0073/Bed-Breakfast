@@ -47,7 +47,7 @@ const Cipher = () => {
     
     
     useEffect(() => {
-        const myArray = ['Cipher Text', 'Plain Text'];
+        const myArray = ['cipher', 'plain'];
         var randomType = myArray[Math.floor(Math.random()*myArray.length)];
         setType(randomType)
         
@@ -81,13 +81,14 @@ const Cipher = () => {
           })
           .then(function (response) {
             console.log(response) ;
-            // localStorage.setItem("username",username)
-            // localStorage.setItem("email",Email)
-            alert("Home")
+            localStorage.setItem("username",UserName)
+            localStorage.setItem("email",Email)
+            alert("Login Sucessfull")
             
           })
           .catch(function (error) {
             console.log(error);
+            alert("Wrong Answer")
             
           });
     }

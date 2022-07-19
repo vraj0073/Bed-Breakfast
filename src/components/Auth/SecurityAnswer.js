@@ -47,7 +47,7 @@ const SecurityAnswer = () => {
 
     }
     const validSubmit = () =>{
-        alert("histrory")
+       
         history('/Cipher',{state:{EMAIL: Email, userName: UserName, answer: Answer }});
         
 

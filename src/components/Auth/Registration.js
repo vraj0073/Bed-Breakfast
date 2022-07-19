@@ -52,12 +52,12 @@ const Registration = () => {
   const validateFirstname = (e) => {
     const firstname = e.target.value;
     setFirstname(firstname)
-    console.log(Firstname)
+    
   };
   const validateLastname = (e) => {
     const lastname = e.target.value;
     setLastname(lastname)
-    console.log(lastname)
+    
   };
   const validatePhone = (e) =>{
     const phonenumber = e.target.value;
@@ -138,6 +138,7 @@ const validateSubmit = (props)=>{
           })
           .catch(function (error) {
             console.log(error);
+            alert("User alreday registered")
           });
     
   } 
