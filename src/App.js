@@ -8,6 +8,7 @@ import {
 import Hotel from "./components/Hotel/Hotel";
 import BookRoom from "./components/Hotel/BookRoom";
 import Bookings from "./components/Hotel/Bookings";
+<<<<<<< HEAD
 import Login from "./components/Auth/Login";
 import Registration from "./components/Auth/Registration";
 import AuthenticationCode from "./components/Auth/AuthenticationCode";
@@ -18,6 +19,7 @@ import Cipher from "./components/Auth/Cipher";
 import ForgetPassword from "./components/Auth/ForgetPassword";
 import ForgetPasswordCode from "./components/Auth/ForgetPasswordCode";
 import Booking from "./components/Kitchen/Booking";
+import Tour from "./components/Hotel/Tour";
 
 function App() {
   return (
@@ -40,6 +42,8 @@ function App() {
             <Route exact path="/forgetcode" element={<ForgetPasswordCode />} />
             <Route exact path="/kitchenBooking" element={<Booking/>} />
             
+            <Route exact path="/tour" element={<Tour />} />
+            {/* Change End */}
           </Routes>
         </Router>
       </div>
