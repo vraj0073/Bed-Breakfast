@@ -39,6 +39,7 @@ const SecurityAnswer = () => {
     const history = useNavigate();
     var Email = location.state.EMAIL
     var UserName = location.state.userName
+    var IdToken = location.state.IdToken;
     const [Answer, setAnswer] = useState('');
     
     const validAnswer = (e) => {
@@ -47,8 +48,29 @@ const SecurityAnswer = () => {
 
     }
     const validSubmit = () =>{
+      const headers = {
+        'Content-Type': 'application/json',
+        'x-api-key': 'Hoda8DZJ6F59ZIPpR4pZz7Obd54Z4UBH2WRu3pqy',
+        'Auth': IdToken
+      }
+        axios.post('https://4yj142u508.execute-api.us-east-1.amazonaws.com/dev/api/user/gcp-qa', {
+            username: UserName,
+            answer: Answer
+            
+          },{headers:headers})
+          .then(function (response) {
+            console.log(response);
+            var username = response.data['Username']
+            console.log(username)
+            
+            history("/Cipher",{state:{EMAIL: Email, userName: username, IdToken : IdToken}})   
+          })
+          .catch(function (error) {
+            console.log(error);
+            alert("Invalid Answer")
+          });
        
-        history('/Cipher',{state:{EMAIL: Email, userName: UserName, answer: Answer }});
+        // 
         
 
     }

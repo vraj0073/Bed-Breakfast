@@ -55,34 +55,38 @@ const Booking = () => {
     const [Quantity,SetQuantity] = useState();
     const [Time,SetTime] = useState();
 
-    const validPancake = (e) =>{
-        // const pancakes = e.target.value;
-        const { myValue } = e.currentTarget.dataset;
-    console.log(myValue)
-    SetMenu(myValue)
+      const handleMenu = (e) =>{
+        const order = e.target.value;
+        SetMenu(order)
+      }
+    // const validPancake = (e) =>{
+    //     // const pancakes = e.target.value;
+    //     const { myValue } = e.currentTarget.dataset;
+    // console.log(myValue)
+    // SetMenu(myValue)
         
-    }
+    // }
     
-    const validOatmeal = (e) =>{
-        const { myValue } = e.currentTarget.dataset;
-    console.log(myValue)
-    SetMenu(myValue)
-    }
-    const validSandwich = (e) =>{
-        const { myValue } = e.currentTarget.dataset;
-        console.log(myValue)
-        SetMenu(myValue)
-    }
-    const validBread = (e) =>{
-        const { myValue } = e.currentTarget.dataset;
-    console.log(myValue)
-    SetMenu(myValue)
-    }
-    const validCoffee = (e) =>{
-        const { myValue } = e.currentTarget.dataset;
-    console.log(myValue)
-    SetMenu(myValue)
-    }
+    // const validOatmeal = (e) =>{
+    //     const { myValue } = e.currentTarget.dataset;
+    // console.log(myValue)
+    // SetMenu(myValue)
+    // }
+    // const validSandwich = (e) =>{
+    //     const { myValue } = e.currentTarget.dataset;
+    //     console.log(myValue)
+    //     SetMenu(myValue)
+    // }
+    // const validBread = (e) =>{
+    //     const { myValue } = e.currentTarget.dataset;
+    // console.log(myValue)
+    // SetMenu(myValue)
+    // }
+    // const validCoffee = (e) =>{
+    //     const { myValue } = e.currentTarget.dataset;
+    // console.log(myValue)
+    // SetMenu(myValue)
+    // }
 
     const handleChange = (e) =>{
         const qu = e.target.value
@@ -188,7 +192,7 @@ const Booking = () => {
             <br />
             <br />
             <Box>
-            <div>
+            {/* <div>
             <div style={{paddingLeft: "35%"}}>      
         <MenuItem data-my-value={'pancakes'} onClick={validPancake} > 
         pancakes
@@ -207,6 +211,22 @@ const Booking = () => {
         </MenuItem>
       
     </div>
+    </div> */}
+    <div>
+    <Typography variant="body2">Menu</Typography>
+    <Select
+    labelId="demo-simple-select-label"
+    id="demo-simple-select"
+    onChange={handleMenu}
+    label="Quantity"  
+  >
+
+    <MenuItem value={'pancakes'}>pancakes</MenuItem>
+    <MenuItem value={'oatmeal'}>oatmeal</MenuItem>
+    <MenuItem value={'sandwich'}>sandwich</MenuItem>
+    <MenuItem value={'bread-butter'}>bread-butter</MenuItem>
+    <MenuItem value={'coffee'}>coffee</MenuItem>
+  </Select>
     </div>
     <div>
     <Typography variant="body2">Quantity</Typography>

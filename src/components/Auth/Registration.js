@@ -120,25 +120,32 @@ const Registration = () => {
       history('/login')
 }  
 const validateSubmit = (props)=>{
+
+  const headers = {
+    'Content-Type': 'application/json',
+    'x-api-key': 'Hoda8DZJ6F59ZIPpR4pZz7Obd54Z4UBH2WRu3pqy'
+  }
   
-    axios.post('https://mpd7tsd5bd.execute-api.us-east-1.amazonaws.com/dev/api/user/signup', {
+    axios.post('https://4yj142u508.execute-api.us-east-1.amazonaws.com/dev/api/user/signup', {
             email: Email,
             firstName: Firstname,
             lastName: Lastname,
             phoneNumber: Phonenumber,
             password: Password,
             
+          },{
+            headers: headers
           })
           .then(function (response) {
+            console.log(response)
             console.log(response.data['username']);
             var UserName = response.data['username']
-            // history('/Confirm')
             history('/Confirm',{state:{EMAIL: Email, userName: UserName}});
             
           })
           .catch(function (error) {
             console.log(error);
-            alert("User alreday registered")
+            alert("User already registered")
           });
     
   } 
