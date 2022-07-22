@@ -47,14 +47,17 @@ const SecurityQuestion = () => {
 
     }
     const validSubmit = () =>{
-      
+      const headers = {
+        'Content-Type': 'application/json',
+        'x-api-key': 'Hoda8DZJ6F59ZIPpR4pZz7Obd54Z4UBH2WRu3pqy'
+      }
       // history('/Success',{state:{EMAIL: Email, userName: UserName}});
-        axios.post('https://us-central1-serverless-csci5410.cloudfunctions.net/serverless-bb-registration', {
+        axios.post('https://4yj142u508.execute-api.us-east-1.amazonaws.com/dev/api/user/gcp-reg', {
             email: Email,
             username: UserName,
             answer: Answer
             
-          })
+          },{headers:headers})
           .then(function (response) {
             console.log(response.data['message']);
             var message = response.data['message']
