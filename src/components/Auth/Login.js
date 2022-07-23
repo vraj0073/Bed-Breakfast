@@ -55,17 +55,24 @@ const Login = () => {
       history("/")
     }
     const validateSubmit = () =>{
-        axios.post('https://mpd7tsd5bd.execute-api.us-east-1.amazonaws.com/dev/api/user/login', {
+      const headers = {
+        'Content-Type': 'application/json',
+        'x-api-key': 'Hoda8DZJ6F59ZIPpR4pZz7Obd54Z4UBH2WRu3pqy'
+      }
+        axios.post('https://4yj142u508.execute-api.us-east-1.amazonaws.com/dev/api/user/login', {
             email: Email,
             password: Password
             
-          })
+          },{headers:headers})
           .then(function (response) {
             console.log(response);
             var username = response.data['Username']
+            var IdToken = response.data.AuthenticationResult['IdToken']
+            localStorage.setItem("token", IdToken);
             console.log(username)
+            console.log(IdToken)
             
-            history("/SecurityAnswer",{state:{EMAIL: Email, userName: username}})   
+            history("/SecurityAnswer",{state:{EMAIL: Email, userName: username, IdToken: IdToken}})   
           })
           .catch(function (error) {
             console.log(error);
