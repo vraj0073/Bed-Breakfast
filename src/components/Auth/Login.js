@@ -67,12 +67,13 @@ const Login = () => {
           .then(function (response) {
             console.log(response);
             var username = response.data['Username']
+            var email = response.data['Email']
             var IdToken = response.data.AuthenticationResult['IdToken']
             localStorage.setItem("token", IdToken);
             console.log(username)
             console.log(IdToken)
             
-            history("/SecurityAnswer",{state:{EMAIL: Email, userName: username, IdToken: IdToken}})   
+            history("/SecurityAnswer",{state:{EMAIL: email, userName: username, IdToken: IdToken}})   
           })
           .catch(function (error) {
             console.log(error);
