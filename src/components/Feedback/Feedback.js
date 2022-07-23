@@ -2,7 +2,7 @@ import * as React from "react";
 import { useState } from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
+import TextareaAutosize from "@mui/material/TextareaAutosize";
 import Link from "@mui/material/Link";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
@@ -10,9 +10,9 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import SportsFootballIcon from "@mui/icons-material/SportsFootball";
+import { useNavigate } from "react-router-dom";
 import RoomServiceSharpIcon from "@mui/icons-material/RoomServiceSharp";
-import { useLocation, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import axios from "axios";
 
 function Copyright(props) {
   return (
@@ -34,39 +34,41 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-const ForgetPassword = () => {
-    const history = useNavigate();
-    const location = useLocation();
-    const [Email,setEmail] = useState()
-    const validateEmail = (e) => {
-        const email = e.target.value;
-    setEmail(email)
-    
-    }
+const Feedback = () => {
+  const history = useNavigate();
 
-    const validateSubmit = () =>{
-      const headers = {
-        'Content-Type': 'application/json',
-        'x-api-key': 'Hoda8DZJ6F59ZIPpR4pZz7Obd54Z4UBH2WRu3pqy'
-      }
-        axios.post('https://4yj142u508.execute-api.us-east-1.amazonaws.com/dev/api/user/forgotpassword', {
-            email: Email,
-            
-          },{
-            headers: headers
-          }
-          
-          
-      )
-          .then(function (response) {
-            console.log(response);
-            history('/forgetcode',{state:{EMAIL: Email }})
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
+  const [Feedback, setFeedback] = useState("");
+
+  const validateFeedback = (e) => {
+    const feedback = e.target.value;
+    if (feedback === "") {
+      alert("Please provide a valid feedback");
     }
-        
+    setFeedback(feedback);
+  };
+
+  const validateSubmit = (props) => {
+    const headers = {
+      "Content-Type": "application/json",
+      "x-api-key": "Hoda8DZJ6F59ZIPpR4pZz7Obd54Z4UBH2WRu3pqy",
+    };
+
+    axios
+      .post(
+        "https://4yj142u508.execute-api.us-east-1.amazonaws.com/dev/polarity",
+        {"booking_id": "YVBCYHVVYREVTER", "Feedback": "awesome "}
+      )
+      .then(function (response) {
+        console.log(response);
+        alert("Feed back submitted Successfully");
+        history("/bookings");
+      })
+      .catch(function (error) {
+        console.log(error);
+        alert("Internal server error");
+      });
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <Grid container component="main" sx={{ height: "100vh" }}>
@@ -119,7 +121,7 @@ const ForgetPassword = () => {
                       textDecoration: "none",
                     }}
                   >
-                    Serverless B&B Forget Password
+                    Serverless B&B Feedback
                   </Typography>
                 </Grid>
               </Grid>
@@ -127,28 +129,28 @@ const ForgetPassword = () => {
           </Box>
           <Box xs={12} sm={12} md={12}>
             <Box>
-              <Typography variant="body2">Email/Username</Typography>
-              <TextField
-                margin="normal"
-                required
-                
-                id="email"
-                label="Email / Username"
-                name="email"
-                onChange={validateEmail}
-                autoComplete="off"
+              <Typography variant="body2">Feedback</Typography>
+              <TextareaAutosize
+                aria-label="minimum height"
+                minRows={5}
+                placeholder="Type your feedback here"
+                style={{ width: 200 }}
+                value={Feedback}
+                onChange={validateFeedback}
               />
             </Box>
-            
+
             <br />
             <br />
             <Box>
-              <Button variant="contained" color="primary" onClick={validateSubmit} sx={{ height: 40 }}>
-               Submit
+              <Button
+                variant="contained"
+                onClick={validateSubmit}
+                color="primary"
+                sx={{ height: 40 }}
+              >
+                Submit
               </Button>
-              
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              
             </Box>
           </Box>
         </Grid>
@@ -173,4 +175,4 @@ const ForgetPassword = () => {
   );
 };
 
-export default ForgetPassword;
+export default Feedback;
