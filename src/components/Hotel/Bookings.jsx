@@ -1,51 +1,9 @@
 import * as React from "react";
-import Avatar from "@mui/material/Avatar";
-// import { Container } from "@mui/material";
 import axios from "axios";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
-import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-
-import { LocalizationProvider } from "@mui/x-date-pickers-pro";
-import { DateRangePicker } from "@mui/x-date-pickers-pro/DateRangePicker";
-import { AdapterDateFns } from "@mui/x-date-pickers-pro/AdapterDateFns";
 import Button from "react-bootstrap/Button";
-import Card from "react-bootstrap/Card";
-import { IconButton } from "@mui/material";
-
-import { styled } from "@mui/material/styles";
-
-import CardMedia from "@mui/material/CardMedia";
-import CardContent from "@mui/material/CardContent";
-import CardActions from "@mui/material/CardActions";
-import Collapse from "@mui/material/Collapse";
-import { red } from "@mui/material/colors";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import ShareIcon from "@mui/icons-material/Share";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-
-const bull = (
-  <Box
-    component="span"
-    sx={{ display: "inline-block", mx: "2px", transform: "scale(0.8)" }}
-  >
-    •
-  </Box>
-);
-
-// const get_upcoming_bookings(() => {
-
-// })
 
 const Bookings = () => {
   const [upcomingBookings, setUpcomingBookings] = React.useState();
@@ -118,7 +76,6 @@ const Bookings = () => {
                   Booking ID : {booking.BookingId} &nbsp; | &nbsp; Total Rooms:{" "}
                   &nbsp;|&nbsp; Dates : {booking.BookingFrom} -{" "}
                   {booking.BookingTo}
-                  {/* {booking.TotalRooms} */}
                 </div>
               </div>
 
@@ -183,7 +140,6 @@ const Bookings = () => {
                       Booking ID : {booking.BookingId} &nbsp; | &nbsp; Total
                       Rooms: &nbsp;|&nbsp; Dates : {booking.BookingFrom} -{" "}
                       {booking.BookingTo}
-                      {/* {booking.TotalRooms} */}
                     </div>
                   </div>
 
