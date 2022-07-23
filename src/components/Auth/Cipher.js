@@ -76,7 +76,7 @@ const Cipher = () => {
       .post(
         "https://4yj142u508.execute-api.us-east-1.amazonaws.com/dev/api/user/gcp-auth",
         {
-          username: location.state.userName,
+          username: UserName,
           type: Type,
           text: Cipher,
           caesarAns: CipherAnswer,
