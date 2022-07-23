@@ -48,8 +48,14 @@ const AuthenticationCode = () => {
 
     }
     const validateResend = () =>{
-        axios.post('https://mpd7tsd5bd.execute-api.us-east-1.amazonaws.com/dev/api/user/resendverificationcode', {
+      const headers = {
+        'Content-Type': 'application/json',
+        'x-api-key': 'Hoda8DZJ6F59ZIPpR4pZz7Obd54Z4UBH2WRu3pqy'
+      }
+        axios.post('https://4yj142u508.execute-api.us-east-1.amazonaws.com/dev/api/user/resendverificationcode', {
             username: location.state.EMAIL,
+          },{
+            headers: headers
           })
           .then(function (response) {
             console.log(response); 
@@ -62,11 +68,15 @@ const AuthenticationCode = () => {
 
     }
     const validateSubmit = () =>{
-        axios.post('https://mpd7tsd5bd.execute-api.us-east-1.amazonaws.com/dev/api/user/verification', {
+      const headers = {
+        'Content-Type': 'application/json',
+        'x-api-key': 'Hoda8DZJ6F59ZIPpR4pZz7Obd54Z4UBH2WRu3pqy'
+      }
+        axios.post('https://4yj142u508.execute-api.us-east-1.amazonaws.com/dev/api/user/verification', {
             username: location.state.EMAIL,
             code: Code
             
-          })
+          },{headers: headers})
           .then(function (response) {
             console.log(response);
             history('/Security',{state:{EMAIL: Email, userName: UserName}});
