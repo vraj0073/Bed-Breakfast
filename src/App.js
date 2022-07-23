@@ -44,8 +44,8 @@ function App() {
             <Route exact path="/Cipher" element={<Cipher />} />
             <Route exact path="/forgetpassword" element={<ForgetPassword />} />
             <Route exact path="/forgetcode" element={<ForgetPasswordCode />} />
-            <Route exact path="/kitchenBooking" element={<Booking/>} />
-            
+            <Route exact path="/kitchenBooking" element={<Booking />} />
+
             <Route exact path="/tour" element={<Tour />} />
             <Route exact path="/tour1" element={<Tour1 />} />
             <Route exact path="/tour2" element={<Tour2 />} />

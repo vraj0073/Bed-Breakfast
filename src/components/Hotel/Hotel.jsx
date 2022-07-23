@@ -118,7 +118,12 @@ export default function Login() {
             <br />
             <br />
             <Box>
-              <Button variant="contained" color="primary" sx={{ height: 40 }}>
+              <Button
+                variant="contained"
+                href="bookings"
+                color="primary"
+                sx={{ height: 40 }}
+              >
                 My Bookings
               </Button>
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
