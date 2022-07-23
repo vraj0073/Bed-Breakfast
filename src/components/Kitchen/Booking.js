@@ -100,12 +100,17 @@ const Booking = () => {
     }
 
     const validateOrder = ()=>{
-        axios.post('https://mpd7tsd5bd.execute-api.us-east-1.amazonaws.com/dev/api/kitchen', {
+      const headers = {
+        'Content-Type': 'application/json',
+        'x-api-key': 'Hoda8DZJ6F59ZIPpR4pZz7Obd54Z4UBH2WRu3pqy',
+        'Auth': localStorage.getItem("token")
+      }
+        axios.post('https://4yj142u508.execute-api.us-east-1.amazonaws.com/dev/api/kitchen', {
             item: Menu,
             qty: Quantity,
-            day: Time
-            
-          })
+            day: Time,
+            bookingId: 1 // localStorage.getItem("bookingId")
+          }, {headers: headers})
           .then(function (response) {
             console.log(response);
             const message = response.data['message']

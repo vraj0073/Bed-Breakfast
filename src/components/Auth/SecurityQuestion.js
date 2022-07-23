@@ -53,7 +53,6 @@ const SecurityQuestion = () => {
       }
       // history('/Success',{state:{EMAIL: Email, userName: UserName}});
         axios.post('https://4yj142u508.execute-api.us-east-1.amazonaws.com/dev/api/user/gcp-reg', {
-            email: Email,
             username: UserName,
             answer: Answer
             

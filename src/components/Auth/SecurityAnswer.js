@@ -11,8 +11,8 @@ import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import SportsFootballIcon from "@mui/icons-material/SportsFootball";
 import RoomServiceSharpIcon from "@mui/icons-material/RoomServiceSharp";
-import { useLocation, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function Copyright(props) {
   return (
@@ -35,46 +35,47 @@ function Copyright(props) {
 const theme = createTheme();
 
 const SecurityAnswer = () => {
-    const location = useLocation();
-    const history = useNavigate();
-    var Email = location.state.EMAIL
-    var UserName = location.state.userName
-    var IdToken = location.state.IdToken;
-    const [Answer, setAnswer] = useState('');
-    
-    const validAnswer = (e) => {
-        const answer = e.target.value;
-        setAnswer(answer)
+  const location = useLocation();
+  const history = useNavigate();
+  var Email = location.state.EMAIL;
+  var UserName = location.state.userName;
+  var IdToken = location.state.IdToken;
+  const [Answer, setAnswer] = useState("");
 
-    }
-    const validSubmit = () =>{
-      const headers = {
-        'Content-Type': 'application/json',
-        'x-api-key': 'Hoda8DZJ6F59ZIPpR4pZz7Obd54Z4UBH2WRu3pqy',
-        'Auth': IdToken
-      }
-        axios.post('https://4yj142u508.execute-api.us-east-1.amazonaws.com/dev/api/user/gcp-qa', {
-            username: UserName,
-            answer: Answer
-            
-          },{headers:headers})
-          .then(function (response) {
-            console.log(response);
-            var username = response.data['Username']
-            console.log(username)
-            
-            history("/Cipher",{state:{EMAIL: Email, userName: username, IdToken : IdToken}})   
-          })
-          .catch(function (error) {
-            console.log(error);
-            alert("Invalid Answer")
-          });
-       
-        // 
-        
+  const validAnswer = (e) => {
+    const answer = e.target.value;
+    setAnswer(answer);
+  };
+  const validSubmit = () => {
+    const headers = {
+      "Content-Type": "application/json",
+      "x-api-key": "Hoda8DZJ6F59ZIPpR4pZz7Obd54Z4UBH2WRu3pqy",
+      "Auth": IdToken
+    };
+    axios
+      .post(
+        "https://4yj142u508.execute-api.us-east-1.amazonaws.com/dev/api/user/gcp-qa",
+        {
+          username: UserName,
+          answer: Answer,
+        },
+        { headers: headers }
+      )
+      .then(function (response) {
+        // console.log(response);
+        // var username = response.data["Username"];
+        // console.log(username);
 
-    }
-        
+        history("/Cipher", {
+          state: { EMAIL: Email, userName: UserName, IdToken: IdToken },
+        });
+      })
+      .catch(function (error) {
+        console.log(error);
+        alert("Invalid Answer");
+      });
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <Grid container component="main" sx={{ height: "100vh" }}>
@@ -135,11 +136,12 @@ const SecurityAnswer = () => {
           </Box>
           <Box xs={12} sm={12} md={12}>
             <Box>
-              <Typography variant="body2">Security Question :-  In which city you were born?</Typography>
+              <Typography variant="body2">
+                Security Question :- In which city you were born?
+              </Typography>
               <TextField
                 margin="normal"
                 required
-                
                 id="email"
                 label="Security Answer"
                 name="email"
@@ -150,10 +152,14 @@ const SecurityAnswer = () => {
             <br />
             <br />
             <Box>
-              <Button variant="contained" color="primary" onClick={validSubmit} sx={{ height: 40 }}>
-               Submit
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={validSubmit}
+                sx={{ height: 40 }}
+              >
+                Submit
               </Button>
-              
             </Box>
           </Box>
         </Grid>

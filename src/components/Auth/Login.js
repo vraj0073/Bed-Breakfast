@@ -68,6 +68,7 @@ const Login = () => {
             console.log(response);
             var username = response.data['Username']
             var IdToken = response.data.AuthenticationResult['IdToken']
+            localStorage.setItem("token", IdToken);
             console.log(username)
             console.log(IdToken)
             
