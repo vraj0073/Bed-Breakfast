@@ -25,6 +25,7 @@ import Tour3 from "./components/Hotel/Tour3";
 import Tour4 from "./components/Hotel/Tour4";
 import Tour5 from "./components/Hotel/Tour5";
 import Feedback from "./components/Feedback/Feedback";
+import Invoice from "./components/Hotel/Invoice";
 
 function App() {
   return (
@@ -45,14 +46,15 @@ function App() {
             <Route exact path="/Cipher" element={<Cipher />} />
             <Route exact path="/forgetpassword" element={<ForgetPassword />} />
             <Route exact path="/forgetcode" element={<ForgetPasswordCode />} />
-            <Route exact path="/kitchenBooking" element={<Booking/>} />
-            <Route exact path="/feedback" element={<Feedback/>} />
+            <Route exact path="/kitchenBooking" element={<Booking />} />
+            <Route exact path="/feedback" element={<Feedback />} />
             <Route exact path="/tour" element={<Tour />} />
             <Route exact path="/tour1" element={<Tour1 />} />
             <Route exact path="/tour2" element={<Tour2 />} />
             <Route exact path="/tour3" element={<Tour3 />} />
             <Route exact path="/tour4" element={<Tour4 />} />
             <Route exact path="/tour5" element={<Tour5 />} />
+            <Route exact path="/invoice" element={<Invoice />} />
             {/* Change End */}
           </Routes>
         </Router>

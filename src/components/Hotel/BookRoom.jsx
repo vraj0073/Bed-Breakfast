@@ -3,18 +3,62 @@ import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import axios from "axios";
-
 import Link from "@mui/material/Link";
-
+import Alert from "@mui/material/Alert";
+import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
-
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-
 import { LocalizationProvider } from "@mui/x-date-pickers-pro";
 import { DateRangePicker } from "@mui/x-date-pickers-pro/DateRangePicker";
 import { AdapterDateFns } from "@mui/x-date-pickers-pro/AdapterDateFns";
+import PropTypes from "prop-types";
+import { styled } from "@mui/material/styles";
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+import DialogActions from "@mui/material/DialogActions";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+const BootstrapDialog = styled(Dialog)(({ theme }) => ({
+  "& .MuiDialogContent-root": {
+    padding: theme.spacing(2),
+  },
+  "& .MuiDialogActions-root": {
+    padding: theme.spacing(1),
+  },
+}));
+
+const BootstrapDialogTitle = (props) => {
+  const { children, onClose, ...other } = props;
+
+  return (
+    <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
+      {children}
+      {onClose ? (
+        <IconButton
+          aria-label="close"
+          onClick={onClose}
+          sx={{
+            position: "absolute",
+            right: 8,
+            top: 8,
+            color: (theme) => theme.palette.grey[500],
+          }}
+        >
+          <CloseIcon />
+        </IconButton>
+      ) : null}
+    </DialogTitle>
+  );
+};
+
+BootstrapDialogTitle.propTypes = {
+  children: PropTypes.node,
+  onClose: PropTypes.func.isRequired,
+};
 
 function Copyright(props) {
   return (
@@ -36,47 +80,58 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-const BookRoom = () => {
+const BookRoom = (props) => {
   const [value, setValue] = React.useState([null, null]);
   const [name, setName] = React.useState("");
-  const [checkInDate, setCheckInDate] = React.useState("");
-  const [checkOutDate, setCheckOutDate] = React.useState("");
   const [phone, setPhone] = React.useState("");
   const [people, setPeople] = React.useState(0);
   const [numberOfRooms, setNumberOfRooms] = React.useState(0);
+  const [userId, setUserId] = React.useState("user1");
+  const [open, setOpen] = React.useState(false);
+  const [res, setRes] = React.useState({});
+  const [roomString, setRoomString] = React.useState("");
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+
+    setValue([null, null]);
+  };
+  // Set USER_ID
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    setCheckInDate(value[0].toISOString().slice(0, 10));
-    setCheckOutDate(value[1].toISOString().slice(0, 10));
-
-    console.log(name);
-    console.log(value[0].toISOString().slice(0, 10));
-    console.log(value[1].toISOString().slice(0, 10));
-    console.log(phone);
-    console.log(people);
-    console.log(numberOfRooms);
-
-    const payload = {};
-    payload["MobileNo"] = phone;
-    payload["TotalPeople"] = people;
-    payload["BookingByName"] = name;
-    payload["BookingTo"] = value[0].toISOString().slice(0, 10);
-    payload["BookingFrom"] = value[1].toISOString().slice(0, 10);
-    payload["TotalRooms"] = numberOfRooms;
-
     const data = {};
-    data["type"] = "booking";
-    data["payload"] = payload;
+    data["Type"] = "booking";
+    data["MobileNo"] = phone;
+    data["TotalPeople"] = people;
+    data["BookingByName"] = name;
+    data["BookingFrom"] = value[0].toISOString().slice(0, 10);
+    data["BookingTo"] = value[1].toISOString().slice(0, 10);
+    // data["TotalRooms"] = parseInt(Math.ceil(parseInt(people) / 3));
+    data["TotalRooms"] = numberOfRooms;
+    data["userId"] = localStorage.getItem("username");
 
     axios({
       method: "post",
-      url: "https://mpd7tsd5bd.execute-api.us-east-1.amazonaws.com/dev/api/booking",
+      url: "https://4yj142u508.execute-api.us-east-1.amazonaws.com/dev/api/rooms/book",
+      headers: {
+        "Content-Type": "application/json",
+      },
       data: data,
-    }).then(() => {
+    }).then((res) => {
+      console.log(res);
       console.log("Booking confirmed!");
+      setRes(res["data"]);
+      setTimeout(() => {
+        setOpen(true);
+      }, 500);
     });
+    localStorage.setItem("bookingid", res["data"]["BookingId"]);
+    setRoomString(res["data"]["room_string"]);
   };
 
   return (
@@ -174,6 +229,41 @@ const BookRoom = () => {
               }}
               autoComplete="off"
             />
+
+            <div>
+              <BootstrapDialog
+                onClose={handleClose}
+                aria-labelledby="customized-dialog-title"
+                open={open}
+                PaperProps={{ sx: { width: "60%", height: "40%" } }}
+              >
+                <BootstrapDialogTitle
+                  id="customized-dialog-title"
+                  onClose={handleClose}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      flexWrap: "wrap",
+                    }}
+                  >
+                    <CheckCircleIcon color="success" />
+                    &nbsp; Booking confirmed! &nbsp;
+                  </div>
+                </BootstrapDialogTitle>
+                <DialogContent dividers>
+                  <br />
+                  <Typography gutterBottom>
+                    Booking ID : {res["BookingId"]}
+                  </Typography>
+                  <br />
+                  <Typography gutterBottom>
+                    Room Number : {res["room_string"]}
+                  </Typography>
+                </DialogContent>
+              </BootstrapDialog>
+            </div>
 
             <Button
               type="submit"
