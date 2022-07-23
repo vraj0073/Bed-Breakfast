@@ -54,11 +54,17 @@ const ForgetPasswordCode = () => {
     }
     
     const validateSubmit = () =>{
-        axios.post('https://mpd7tsd5bd.execute-api.us-east-1.amazonaws.com/dev/api/user/confirmforgotpassword', {
+      const headers = {
+        'Content-Type': 'application/json',
+        'x-api-key': 'Hoda8DZJ6F59ZIPpR4pZz7Obd54Z4UBH2WRu3pqy'
+      }
+        axios.post('https://4yj142u508.execute-api.us-east-1.amazonaws.com/dev/api/user/confirmforgotpassword', {
             email: Email,
             password: Password,
             code: Code
             
+          },{
+            headers: headers
           })
           .then(function (response) {
             console.log(response);

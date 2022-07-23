@@ -45,11 +45,19 @@ const ForgetPassword = () => {
     }
 
     const validateSubmit = () =>{
-        
-        axios.post('https://mpd7tsd5bd.execute-api.us-east-1.amazonaws.com/dev/api/user/forgotpassword', {
+      const headers = {
+        'Content-Type': 'application/json',
+        'x-api-key': 'Hoda8DZJ6F59ZIPpR4pZz7Obd54Z4UBH2WRu3pqy'
+      }
+        axios.post('https://4yj142u508.execute-api.us-east-1.amazonaws.com/dev/api/user/forgotpassword', {
             email: Email,
             
-          })
+          },{
+            headers: headers
+          }
+          
+          
+      )
           .then(function (response) {
             console.log(response);
             history('/forgetcode',{state:{EMAIL: Email }})
