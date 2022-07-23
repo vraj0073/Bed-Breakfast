@@ -18,7 +18,7 @@ import Cipher from "./components/Auth/Cipher";
 import ForgetPassword from "./components/Auth/ForgetPassword";
 import ForgetPasswordCode from "./components/Auth/ForgetPasswordCode";
 import Booking from "./components/Kitchen/Booking";
-import Tour from "./components/Hotel/Tour";
+import Tour from "./components/Tours/Tour";
 import Tour1 from "./components/Hotel/Tour1";
 import Tour2 from "./components/Hotel/Tour2";
 import Tour3 from "./components/Hotel/Tour3";

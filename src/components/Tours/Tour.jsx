@@ -54,7 +54,7 @@ const Tour = () => {
 
     axios
       .post(
-        "https://u63pl4k6cvykvx2oxyioipwlka0umrlt.lambda-url.us-east-1.on.aws/",
+        "https://r3alk52cpf.execute-api.us-east-1.amazonaws.com/default/Group12TourProducerFinal",
         {
           name,
           email,
