@@ -113,7 +113,7 @@ const BookRoom = (props) => {
     data["BookingTo"] = value[1].toISOString().slice(0, 10);
     // data["TotalRooms"] = parseInt(Math.ceil(parseInt(people) / 3));
     data["TotalRooms"] = numberOfRooms;
-    data["userId"] = userId;
+    data["userId"] = localStorage.getItem("username");
 
     axios({
       method: "post",
@@ -130,7 +130,7 @@ const BookRoom = (props) => {
         setOpen(true);
       }, 500);
     });
-
+    localStorage.setItem("bookingid", res["data"]["BookingId"]);
     setRoomString(res["data"]["room_string"]);
   };
 

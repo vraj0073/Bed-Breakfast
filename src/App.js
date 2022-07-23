@@ -24,6 +24,7 @@ import Tour2 from "./components/Hotel/Tour2";
 import Tour3 from "./components/Hotel/Tour3";
 import Tour4 from "./components/Hotel/Tour4";
 import Tour5 from "./components/Hotel/Tour5";
+import Invoice from "./components/Hotel/Invoice";
 
 function App() {
   return (
@@ -52,6 +53,7 @@ function App() {
             <Route exact path="/tour3" element={<Tour3 />} />
             <Route exact path="/tour4" element={<Tour4 />} />
             <Route exact path="/tour5" element={<Tour5 />} />
+            <Route exact path="/invoice" element={<Invoice />} />
             {/* Change End */}
           </Routes>
         </Router>
