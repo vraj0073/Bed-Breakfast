@@ -62,7 +62,7 @@ const Recommendation = () => {
     axios
       .post(
         "https://us-central1-polished-trail-340322.cloudfunctions.net/recomm",
-        {"id": "1002","Age": ''+parseInt(Math.random() * (89)+12),"number": "1"}
+        {"id": ''+parseInt(Math.random() * (2000)+1),"Age": ''+parseInt(Math.random() * (89)+12),"number": ''+parseInt(Math.random() * (20)+1)}
         )
       .then(function (response) {
         console.log(response.data.data.name);
