@@ -42,6 +42,12 @@ const SecurityAnswer = () => {
   var IdToken = location.state.IdToken;
   const [Answer, setAnswer] = useState("");
 
+  React.useEffect(() => {
+    if(!localStorage.getItem("token")) {
+      history("/login");
+    }
+  }, []);
+
   const validAnswer = (e) => {
     const answer = e.target.value;
     setAnswer(answer);

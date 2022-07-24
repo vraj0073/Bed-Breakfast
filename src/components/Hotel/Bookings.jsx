@@ -80,7 +80,7 @@ const Bookings = () => {
       </Container>
       <hr />
 
-      <Typography variant="h5">Upcoming Bookings</Typography>
+      <Typography variant="h5">Upcoming / Current Bookings</Typography>
       <br />
       {upcomingBookings?.map((booking) => (
         <div className="CartTotal">
@@ -101,7 +101,7 @@ const Bookings = () => {
                 </div>
               </div>
 
-              <div className="div-10">
+              <div className="div-10" style={{display: "flex", alignItem: "center", justifyContent: "center"}}>
                 <Button
                   variant="contained"
                   onClick={() => {
@@ -131,6 +131,7 @@ const Bookings = () => {
                     fontSize: "16px",
                     color: "white",
                     fontWeight: 700,
+                    width: "10%",
                   }}
                 >
                   Cancel Booking
@@ -149,6 +150,7 @@ const Bookings = () => {
                     fontSize: "16px",
                     color: "white",
                     fontWeight: 700,
+                    width: "10%",
                   }}
                 >
                   Request Tour
@@ -170,6 +172,7 @@ const Bookings = () => {
                     fontSize: "16px",
                     color: "white",
                     fontWeight: 700,
+                    width: "10%",
                   }}
                 >
                   Order Meal
@@ -204,7 +207,7 @@ const Bookings = () => {
                     </div>
                   </div>
 
-                  <div className="div-10">
+                  <div className="div-10" style={{display: "flex", alignItem: "center", justifyContent: "center"}}>
                   <Button
                   variant="contained"
                   onClick={() => {
@@ -219,6 +222,7 @@ const Bookings = () => {
                     fontSize: "16px",
                     color: "white",
                     fontWeight: 700,
+                    width: "20%",
                   }}
                 >
                   Give Feedback
@@ -231,14 +235,26 @@ const Bookings = () => {
           ))}
         </div>
       </Container>
+      <div className="div-10" style={{display: "flex", alignItem: "center", justifyContent: "center"}}>
       <Button
         href="/rooms"
         type="submit"
         variant="contained"
         sx={{ mt: 3, mb: 2 }}
+        style={{
+          borderRadius: 5,
+          backgroundColor: "black",
+          marginTop: 50,
+          color: "white",
+          fontSize: "16px",
+          color: "white",
+          fontWeight: 700,
+          width: "10%",
+        }}
       >
         Home
       </Button>
+      </div>
     </div>
   );
 };

@@ -2,26 +2,17 @@ import * as React from "react";
 import { useState } from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
 import Link from "@mui/material/Link";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import SportsFootballIcon from "@mui/icons-material/SportsFootball";
 import RoomServiceSharpIcon from "@mui/icons-material/RoomServiceSharp";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
-import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import EditIcon from "@mui/icons-material/Edit";
-import Divider from "@mui/material/Divider";
-import ArchiveIcon from "@mui/icons-material/Archive";
-import FileCopyIcon from "@mui/icons-material/FileCopy";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import StyledEngine from "@mui/styled-engine";
+
 import { Select } from "@mui/material";
 
 function Copyright(props) {
@@ -61,11 +52,6 @@ const Booking = () => {
     const order = e.target.value;
     SetMenu(order);
   };
-  // const validPancake = (e) =>{
-  //     // const pancakes = e.target.value;
-  //     const { myValue } = e.currentTarget.dataset;
-  // console.log(myValue)
-  // SetMenu(myValue)
 
   let [showChat, setShowChat] = useState(false);
   const startChat = () => {
@@ -74,35 +60,6 @@ const Booking = () => {
   const hideChat = () => {
     setShowChat(false);
   };
-  
-  // const validPancake = (e) =>{
-  //     // const pancakes = e.target.value;
-  //     const { myValue } = e.currentTarget.dataset;
-  // console.log(myValue)
-  // SetMenu(myValue)
-
-  // }
-
-  // const validOatmeal = (e) =>{
-  //     const { myValue } = e.currentTarget.dataset;
-  // console.log(myValue)
-  // SetMenu(myValue)
-  // }
-  // const validSandwich = (e) =>{
-  //     const { myValue } = e.currentTarget.dataset;
-  //     console.log(myValue)
-  //     SetMenu(myValue)
-  // }
-  // const validBread = (e) =>{
-  //     const { myValue } = e.currentTarget.dataset;
-  // console.log(myValue)
-  // SetMenu(myValue)
-  // }
-  // const validCoffee = (e) =>{
-  //     const { myValue } = e.currentTarget.dataset;
-  // console.log(myValue)
-  // SetMenu(myValue)
-  // }
 
   const handleChange = (e) => {
     const qu = e.target.value;
@@ -116,12 +73,14 @@ const Booking = () => {
   };
 
   const validateOrder = () => {
-    const headers = {
-      "Content-Type": "application/json",
-      "x-api-key": "Hoda8DZJ6F59ZIPpR4pZz7Obd54Z4UBH2WRu3pqy",
-      Auth: localStorage.getItem("token"),
-    };
-    axios
+    if(Menu != null && Quantity != null && Time != null) {
+
+      const headers = {
+        "Content-Type": "application/json",
+        "x-api-key": "Hoda8DZJ6F59ZIPpR4pZz7Obd54Z4UBH2WRu3pqy",
+        Auth: localStorage.getItem("token"),
+      };
+      axios
       .post(
         "https://4yj142u508.execute-api.us-east-1.amazonaws.com/dev/api/kitchen",
         {
@@ -131,16 +90,19 @@ const Booking = () => {
           bookingId: localStorage.getItem("bookingid"), // localStorage.getItem("bookingId")
         },
         { headers: headers }
-      )
-      .then(function (response) {
-        console.log(response);
-        const message = response.data["message"];
-        alert(message);
-        history("/rooms");
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+        )
+        .then(function (response) {
+          console.log(response);
+          const message = response.data["message"];
+          alert(message);
+          history("/rooms");
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      } else {
+        alert("Please select valid order details");
+      }
   };
 
   return (
@@ -203,44 +165,24 @@ const Booking = () => {
           </Box>
           <Box xs={12} sm={12} md={12}>
             <Box>
-              <Typography variant="body2">Iteams Available</Typography>
-              <br></br>
-              <Typography variant="body2">pancakes - $10</Typography>
-              <Typography variant="body2">oatmeal - $4</Typography>
-              <Typography variant="body2">sandwich - $7</Typography>
-              <Typography variant="body2">coffee - $3</Typography>
-              <Typography variant="body2">bread-butter - $5</Typography>
+              <h2>Iteams Available</h2>
+              <h2 style={{fontWeight: "normal", margin: 0}}>pancakes - $10</h2>
+              <h2 style={{fontWeight: "normal", margin: 0}}>oatmeal - $4</h2>
+              <h2 style={{fontWeight: "normal", margin: 0}}>sandwich - $7</h2>
+              <h2 style={{fontWeight: "normal", margin: 0}}>coffee - $3</h2>
+              <h2 style={{fontWeight: "normal", margin: 0}}>bread-butter - $5</h2>
             </Box>
             <br />
             <br />
             <Box>
-              {/* <div>
-            <div style={{paddingLeft: "35%"}}>      
-        <MenuItem data-my-value={'pancakes'} onClick={validPancake} > 
-        pancakes
-        </MenuItem>
-        <MenuItem data-my-value={'oatmeal'} onClick={validOatmeal} >
-          oatmeal
-        </MenuItem>
-        <MenuItem data-my-value={'sandwich'} onClick={validSandwich} >
-          sandwich
-        </MenuItem>
-        <MenuItem data-my-value={'bread-butter'} onClick={validBread} >
-        bread-butter
-        </MenuItem>
-        <MenuItem data-my-value={'coffee'} onClick={validCoffee}>
-          coffee
-        </MenuItem>
-      
-    </div>
-    </div> */}
               <div>
-                <Typography variant="body2">Menu</Typography>
+                <Typography variant="body1">Select Item</Typography>
                 <Select
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
                   onChange={handleMenu}
                   label="Quantity"
+                  style={{width: "20%", margin: "1%"}}
                 >
                   <MenuItem value={"pancakes"}>pancakes</MenuItem>
                   <MenuItem value={"oatmeal"}>oatmeal</MenuItem>
@@ -250,12 +192,13 @@ const Booking = () => {
                 </Select>
               </div>
               <div>
-                <Typography variant="body2">Quantity</Typography>
+                <Typography variant="body1">Quantity</Typography>
                 <Select
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
                   onChange={handleChange}
                   label="Quantity"
+                  style={{width: "20%", margin: "1%"}}
                 >
                   <MenuItem value={1}>1</MenuItem>
                   <MenuItem value={2}>2</MenuItem>
@@ -263,12 +206,13 @@ const Booking = () => {
                 </Select>
               </div>
               <div>
-                <Typography variant="body2">Scedule Time:</Typography>
+                <Typography variant="body1">Day</Typography>
                 <Select
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
                   onChange={handleTime}
                   label="Quantity"
+                  style={{width: "20%", margin: "1%"}}
                 >
                   <MenuItem value={"today"}>Today</MenuItem>
                   <MenuItem value={"tomorrow"}>Tomorrow</MenuItem>
