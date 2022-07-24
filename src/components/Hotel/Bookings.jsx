@@ -156,8 +156,8 @@ const Bookings = () => {
                   Request Tour
                 </Button>
                 &nbsp;&nbsp;
-                {new Date(booking.BookingFrom) >= yesDate
-                 && new Date(booking.BookingFrom) <= tomDate 
+                {(new Date(booking.BookingFrom) == new Date() || 
+                (new Date(booking.BookingFrom) < new Date() && new Date(booking.BookingTo) >= new Date()))
                  && <Button
                   variant="contained"
                   onClick={() => {
