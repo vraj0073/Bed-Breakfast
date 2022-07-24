@@ -91,10 +91,15 @@ const BookRoom = (props) => {
   const [open, setOpen] = React.useState(false);
   const [res, setRes] = React.useState({});
   const [roomString, setRoomString] = React.useState("");
+  const [bookingId, setBookingID] = React.useState("");
 
   let [showChat, setShowChat] = useState(false);
-  const startChat = () => { setShowChat(true); }
-  const hideChat = () => { setShowChat(false); }
+  const startChat = () => {
+    setShowChat(true);
+  };
+  const hideChat = () => {
+    setShowChat(false);
+  };
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -120,6 +125,8 @@ const BookRoom = (props) => {
     data["TotalRooms"] = numberOfRooms;
     data["userId"] = localStorage.getItem("username");
 
+    let booking_id = "";
+
     axios({
       method: "post",
       url: "https://4yj142u508.execute-api.us-east-1.amazonaws.com/dev/api/rooms/book",
@@ -131,12 +138,27 @@ const BookRoom = (props) => {
       console.log(res);
       console.log("Booking confirmed!");
       setRes(res["data"]);
+      booking_id = res["data"]["BookingId"];
+      localStorage.setItem("bookingid", res["data"]["BookingId"]);
+
+      data["BookingId"] = res["data"]["BookingId"];
+      axios({
+        method: "post",
+        url: "https://4yj142u508.execute-api.us-east-1.amazonaws.com/dev/api/invoice/booking",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        data: data,
+      }).then((res) => {
+        alert("Invoice created!");
+        console.log("Invoice created!");
+      });
+
+      setRoomString(res["data"]["room_string"]);
       setTimeout(() => {
         setOpen(true);
       }, 500);
     });
-    localStorage.setItem("bookingid", res["data"]["BookingId"]);
-    setRoomString(res["data"]["room_string"]);
   };
 
   return (
@@ -289,17 +311,31 @@ const BookRoom = (props) => {
         </Box>
         <Copyright sx={{ mt: 2, mb: 4 }} />
       </Container>
-      <div className = "bot">
-        <div style ={{display: showChat ? "" : "none"}}>
-        {/* <iframe src="https://d2caie5x8agj5e.cloudfront.net/index.html"></iframe> */}
-        </div>      
-        <div className="botSize"> {showChat ?  <iframe style={{width: "450px", height: "600px"}} src="https://d1slt2ls003kt3.cloudfront.net/" ></iframe> : null} </div>
-        <div>
-          {!showChat 
-            ? <button className="btn" onClick={() => startChat()}>click to chat... </button> 
-            : <button className="btn" onClick={() => hideChat()}>click to hide... </button>}
+      <div className="bot">
+        <div style={{ display: showChat ? "" : "none" }}>
+          {/* <iframe src="https://d2caie5x8agj5e.cloudfront.net/index.html"></iframe> */}
         </div>
-      </div>  
+        <div className="botSize">
+          {" "}
+          {showChat ? (
+            <iframe
+              style={{ width: "450px", height: "600px" }}
+              src="https://d1slt2ls003kt3.cloudfront.net/"
+            ></iframe>
+          ) : null}{" "}
+        </div>
+        <div>
+          {!showChat ? (
+            <button className="btn" onClick={() => startChat()}>
+              click to chat...{" "}
+            </button>
+          ) : (
+            <button className="btn" onClick={() => hideChat()}>
+              click to hide...{" "}
+            </button>
+          )}
+        </div>
+      </div>
     </ThemeProvider>
   );
 };
