@@ -45,6 +45,10 @@ const Cipher = () => {
   var Answer = location.state.answer;
 
   useEffect(() => {
+    if(!localStorage.getItem("token")) {
+      history("/login");
+    }
+
     const myArray = ["cipher", "plain"];
     var randomType = myArray[Math.floor(Math.random() * myArray.length)];
     setType(randomType);
@@ -156,15 +160,18 @@ const Cipher = () => {
           </Box>
           <Box xs={12} sm={12} md={12}>
             <Box>
-              <Typography variant="body2">
-                Use the code given to you during registration process to solve
-                it Your {Type} is : {Cipher}
+              <Typography variant="body1">
+                Use the key given to you during registration process to solve. <br /> The {Type} text is : <br/>
+                <h2>{Cipher}</h2>
+              </Typography>
+              <Typography variant="body1">
+                <br /> The {Type === 'plain' ? 'cipher' : 'plain'} text answer for given {Type} text is :
               </Typography>
               <TextField
                 margin="normal"
                 required
                 id="email"
-                label="Cipher Answer"
+                label={Type === 'plain' ? "Cipher Text Answer " : 'Plain Text Answer'}
                 name="email"
                 onChange={validAnswer}
                 autoComplete="off"
