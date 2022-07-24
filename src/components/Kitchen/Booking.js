@@ -11,20 +11,18 @@ import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import SportsFootballIcon from "@mui/icons-material/SportsFootball";
 import RoomServiceSharpIcon from "@mui/icons-material/RoomServiceSharp";
-import { useLocation, useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import EditIcon from '@mui/icons-material/Edit';
-import Divider from '@mui/material/Divider';
-import ArchiveIcon from '@mui/icons-material/Archive';
-import FileCopyIcon from '@mui/icons-material/FileCopy';
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import EditIcon from "@mui/icons-material/Edit";
+import Divider from "@mui/material/Divider";
+import ArchiveIcon from "@mui/icons-material/Archive";
+import FileCopyIcon from "@mui/icons-material/FileCopy";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import StyledEngine from "@mui/styled-engine";
 import { Select } from "@mui/material";
-
-
 
 function Copyright(props) {
   return (
@@ -46,84 +44,91 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-
 const Booking = () => {
-
   const location = useLocation();
-    const history = useNavigate();
-    const [Menu,SetMenu]= useState()
-    const [Quantity,SetQuantity] = useState();
-    const [Time,SetTime] = useState();
+  const history = useNavigate();
+  const [Menu, SetMenu] = useState();
+  const [Quantity, SetQuantity] = useState();
+  const [Time, SetTime] = useState();
 
-      const handleMenu = (e) =>{
-        const order = e.target.value;
-        SetMenu(order)
-      }
-    // const validPancake = (e) =>{
-    //     // const pancakes = e.target.value;
-    //     const { myValue } = e.currentTarget.dataset;
-    // console.log(myValue)
-    // SetMenu(myValue)
-        
-    // }
-    
-    // const validOatmeal = (e) =>{
-    //     const { myValue } = e.currentTarget.dataset;
-    // console.log(myValue)
-    // SetMenu(myValue)
-    // }
-    // const validSandwich = (e) =>{
-    //     const { myValue } = e.currentTarget.dataset;
-    //     console.log(myValue)
-    //     SetMenu(myValue)
-    // }
-    // const validBread = (e) =>{
-    //     const { myValue } = e.currentTarget.dataset;
-    // console.log(myValue)
-    // SetMenu(myValue)
-    // }
-    // const validCoffee = (e) =>{
-    //     const { myValue } = e.currentTarget.dataset;
-    // console.log(myValue)
-    // SetMenu(myValue)
-    // }
+  React.useEffect(() => {
+    if(!localStorage.getItem("token")) {
+      history("/login");
+    }
+  }, []);
 
-    const handleChange = (e) =>{
-        const qu = e.target.value
-        console.log(qu)
-        SetQuantity(qu)
-    }
-    const handleTime = (e) =>{
-        const time = e.target.value
-        console.log(time)
-        SetTime(time)
-    }
+  const handleMenu = (e) => {
+    const order = e.target.value;
+    SetMenu(order);
+  };
+  // const validPancake = (e) =>{
+  //     // const pancakes = e.target.value;
+  //     const { myValue } = e.currentTarget.dataset;
+  // console.log(myValue)
+  // SetMenu(myValue)
 
-    const validateOrder = ()=>{
-      const headers = {
-        'Content-Type': 'application/json',
-        'x-api-key': 'Hoda8DZJ6F59ZIPpR4pZz7Obd54Z4UBH2WRu3pqy',
-        'Auth': localStorage.getItem("token")
-      }
-        axios.post('https://4yj142u508.execute-api.us-east-1.amazonaws.com/dev/api/kitchen', {
-            item: Menu,
-            qty: Quantity,
-            day: Time,
-            bookingId: 1 // localStorage.getItem("bookingId")
-          }, {headers: headers})
-          .then(function (response) {
-            console.log(response);
-            const message = response.data['message']
-            alert(message)
-            
-            
-               
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-    }
-        
+  // }
+
+  // const validOatmeal = (e) =>{
+  //     const { myValue } = e.currentTarget.dataset;
+  // console.log(myValue)
+  // SetMenu(myValue)
+  // }
+  // const validSandwich = (e) =>{
+  //     const { myValue } = e.currentTarget.dataset;
+  //     console.log(myValue)
+  //     SetMenu(myValue)
+  // }
+  // const validBread = (e) =>{
+  //     const { myValue } = e.currentTarget.dataset;
+  // console.log(myValue)
+  // SetMenu(myValue)
+  // }
+  // const validCoffee = (e) =>{
+  //     const { myValue } = e.currentTarget.dataset;
+  // console.log(myValue)
+  // SetMenu(myValue)
+  // }
+
+  const handleChange = (e) => {
+    const qu = e.target.value;
+    console.log(qu);
+    SetQuantity(qu);
+  };
+  const handleTime = (e) => {
+    const time = e.target.value;
+    console.log(time);
+    SetTime(time);
+  };
+
+  const validateOrder = () => {
+    const headers = {
+      "Content-Type": "application/json",
+      "x-api-key": "Hoda8DZJ6F59ZIPpR4pZz7Obd54Z4UBH2WRu3pqy",
+      Auth: localStorage.getItem("token"),
+    };
+    axios
+      .post(
+        "https://4yj142u508.execute-api.us-east-1.amazonaws.com/dev/api/kitchen",
+        {
+          item: Menu,
+          qty: Quantity,
+          day: Time,
+          bookingId: localStorage.getItem("bookingid"), // localStorage.getItem("bookingId")
+        },
+        { headers: headers }
+      )
+      .then(function (response) {
+        console.log(response);
+        const message = response.data["message"];
+        alert(message);
+        history("/rooms");
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <Grid container component="main" sx={{ height: "100vh" }}>
@@ -191,13 +196,11 @@ const Booking = () => {
               <Typography variant="body2">sandwich - $7</Typography>
               <Typography variant="body2">coffee - $3</Typography>
               <Typography variant="body2">bread-butter - $5</Typography>
-              
-              
             </Box>
             <br />
             <br />
             <Box>
-            {/* <div>
+              {/* <div>
             <div style={{paddingLeft: "35%"}}>      
         <MenuItem data-my-value={'pancakes'} onClick={validPancake} > 
         pancakes
@@ -217,60 +220,69 @@ const Booking = () => {
       
     </div>
     </div> */}
-    <div>
-    <Typography variant="body2">Menu</Typography>
-    <Select
-    labelId="demo-simple-select-label"
-    id="demo-simple-select"
-    onChange={handleMenu}
-    label="Quantity"  
-  >
-
-    <MenuItem value={'pancakes'}>pancakes</MenuItem>
-    <MenuItem value={'oatmeal'}>oatmeal</MenuItem>
-    <MenuItem value={'sandwich'}>sandwich</MenuItem>
-    <MenuItem value={'bread-butter'}>bread-butter</MenuItem>
-    <MenuItem value={'coffee'}>coffee</MenuItem>
-  </Select>
-    </div>
-    <div>
-    <Typography variant="body2">Quantity</Typography>
-    <Select
-    labelId="demo-simple-select-label"
-    id="demo-simple-select"
-    onChange={handleChange}
-    label="Quantity"  
-  >
-
-    <MenuItem value={1}>1</MenuItem>
-    <MenuItem value={2}>2</MenuItem>
-    <MenuItem value={3}>3</MenuItem>
-  </Select>
-    </div>
-    <div>
-    <Typography variant="body2">Scedule Time:</Typography>
-    <Select
-    labelId="demo-simple-select-label"
-    id="demo-simple-select"
-    onChange={handleTime}
-    label="Quantity"  
-  >
-
-    <MenuItem value={'today'}>Today</MenuItem>
-    <MenuItem value={'tomorrow'}>Tomorrow</MenuItem>
-
-  </Select>
-    </div>
-     </Box>
+              <div>
+                <Typography variant="body2">Menu</Typography>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  onChange={handleMenu}
+                  label="Quantity"
+                >
+                  <MenuItem value={"pancakes"}>pancakes</MenuItem>
+                  <MenuItem value={"oatmeal"}>oatmeal</MenuItem>
+                  <MenuItem value={"sandwich"}>sandwich</MenuItem>
+                  <MenuItem value={"bread-butter"}>bread-butter</MenuItem>
+                  <MenuItem value={"coffee"}>coffee</MenuItem>
+                </Select>
+              </div>
+              <div>
+                <Typography variant="body2">Quantity</Typography>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  onChange={handleChange}
+                  label="Quantity"
+                >
+                  <MenuItem value={1}>1</MenuItem>
+                  <MenuItem value={2}>2</MenuItem>
+                  <MenuItem value={3}>3</MenuItem>
+                </Select>
+              </div>
+              <div>
+                <Typography variant="body2">Scedule Time:</Typography>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  onChange={handleTime}
+                  label="Quantity"
+                >
+                  <MenuItem value={"today"}>Today</MenuItem>
+                  <MenuItem value={"tomorrow"}>Tomorrow</MenuItem>
+                </Select>
+              </div>
+            </Box>
             <br />
             <br />
             <Box>
-              <Button variant="contained" color="primary" onClick={validateOrder} sx={{ height: 40 }}>
-               Order
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={validateOrder}
+                sx={{ height: 40 }}
+              >
+                Order
               </Button>
-              
+              <br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <Button
+                href="/rooms"
+                type="submit"
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Home
+              </Button>
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              
             </Box>
           </Box>
         </Grid>

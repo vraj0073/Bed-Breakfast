@@ -8,10 +8,39 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import RoomServiceSharpIcon from "@mui/icons-material/RoomServiceSharp";
-
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 const theme = createTheme();
 
-export default function Login() {
+export default function Hotel() {
+  const history = useNavigate();
+  const logout = () => {
+    const headers = {
+      "Content-Type": "application/json",
+      "x-api-key": "Hoda8DZJ6F59ZIPpR4pZz7Obd54Z4UBH2WRu3pqy"
+    };
+    axios
+      .post(
+        "https://4yj142u508.execute-api.us-east-1.amazonaws.com/dev/api/user/logout",
+        {
+          accessToken: localStorage.getItem("accessToken")
+        },
+        { headers: headers }
+      )
+      .then(function (response) {
+        localStorage.removeItem("username");
+        localStorage.removeItem("email");
+        localStorage.removeItem("token");
+        localStorage.removeItem("accessToken");
+        alert("Logout successful");
+
+        history("/login");
+      })
+      .catch(function (error) {
+        console.log(error);
+        alert("Internal server error");
+      });
+  };
   return (
     <ThemeProvider theme={theme}>
       <Grid container component="main" sx={{ height: "100vh" }}>
@@ -121,6 +150,15 @@ export default function Login() {
                 sx={{ height: 40 }}
               >
                 Invoice
+              </Button>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <Button
+               onClick={logout}
+                variant="contained"
+                color="primary"
+                sx={{ height: 40 }}
+              >
+                Logout
               </Button>
             </Box>
           </Box>

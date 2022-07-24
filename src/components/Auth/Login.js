@@ -69,10 +69,10 @@ const Login = () => {
             var username = response.data['Username']
             var email = response.data['Email']
             var IdToken = response.data.AuthenticationResult['IdToken']
+            console.log(IdToken);
+            console.log(response.data.AuthenticationResult['AccessToken']);
             localStorage.setItem("token", IdToken);
-            console.log(username)
-            console.log(IdToken)
-            
+            localStorage.setItem("accessToken", response.data.AuthenticationResult['AccessToken']);
             history("/SecurityAnswer",{state:{EMAIL: email, userName: username, IdToken: IdToken}})   
           })
           .catch(function (error) {

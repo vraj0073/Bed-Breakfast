@@ -19,6 +19,7 @@ import DialogContent from "@mui/material/DialogContent";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import { useNavigate } from "react-router-dom";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -79,6 +80,7 @@ function Copyright(props) {
 const theme = createTheme();
 
 const BookRoom = (props) => {
+  const history = useNavigate();
   const [value, setValue] = React.useState([null, null]);
   const [name, setName] = React.useState("");
   const [phone, setPhone] = React.useState("");
@@ -96,6 +98,7 @@ const BookRoom = (props) => {
     setOpen(false);
 
     setValue([null, null]);
+    history("/rooms");
   };
   // Set USER_ID
 
