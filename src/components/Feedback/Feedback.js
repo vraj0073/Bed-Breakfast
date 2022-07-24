@@ -56,7 +56,7 @@ const Feedback = () => {
     axios
       .post(
         "https://4yj142u508.execute-api.us-east-1.amazonaws.com/dev/polarity",
-        { booking_id: "YVBCYHVVYREVTER", Feedback: Feedback }
+        { booking_id: localStorage.getItem("bookingid"), Feedback: Feedback }
       )
       .then(function (response) {
         console.log(response);
