@@ -3,6 +3,7 @@ import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import axios from "axios";
+import { Routes, Route, useNavigate } from "react-router-dom";
 
 import Link from "@mui/material/Link";
 
@@ -34,12 +35,13 @@ const theme = createTheme();
 
 const Tour = () => {
   const [value, setValue] = React.useState([null, null]);
-  const [name, setName] = React.useState("");
-  const [email, setEmail] = React.useState("");
+  const [name, setName] = React.useState(localStorage.getItem("username"));
+  const [email, setEmail] = React.useState(localStorage.getItem("email"));
   const [numberOfPeoples, setNumberOfPeoples] = React.useState("");
   const [tourType, setTourType] = React.useState("");
   const [date, setDate] = React.useState("");
   const [place, setPlace] = React.useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -50,7 +52,7 @@ const Tour = () => {
     payload["numberOfPeoples"] = numberOfPeoples;
     payload["tourType"] = tourType;
     payload["date"] = date;
-    payload["place"] = place;
+    payload["place"] = "Halifax";
 
     axios
       .post(
@@ -65,10 +67,12 @@ const Tour = () => {
         }
       )
       .then(() => {
-        console.log("Booking confirmed!");
+        alert("Booking submitted!");
+        navigate("/");
       });
   };
 
+  console.log(localStorage.getItem("username"));
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -96,6 +100,8 @@ const Tour = () => {
               fullWidth
               id="name"
               label="Name"
+              value={name}
+              default={localStorage.getItem("username") || "no"}
               name="name"
               onChange={(event) => {
                 setName(event.target.value);
@@ -109,9 +115,11 @@ const Tour = () => {
             <TextField
               margin="normal"
               required
+              value={email}
               fullWidth
               id="email"
               label="Email"
+              default={localStorage.getItem("email") || ""}
               onChange={(event) => {
                 setEmail(event.target.value);
               }}
@@ -143,6 +151,7 @@ const Tour = () => {
               name="tourType"
               autoComplete="off"
             />
+
             <TextField
               margin="normal"
               required
@@ -160,12 +169,8 @@ const Tour = () => {
               required
               fullWidth
               id="place"
-              label="Place"
-              onChange={(event) => {
-                setPlace(event.target.value);
-              }}
-              name="place"
-              autoComplete="off"
+              value="Halifax"
+              disabled
             />
             <Button
               type="submit"
