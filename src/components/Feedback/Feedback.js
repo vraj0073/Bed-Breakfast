@@ -61,7 +61,7 @@ const Feedback = () => {
       .then(function (response) {
         console.log(response);
         alert("Feed back submitted Successfully");
-        history("/bookings");
+        history("/rooms");
       })
       .catch(function (error) {
         console.log(error);
@@ -150,6 +150,16 @@ const Feedback = () => {
                 sx={{ height: 40 }}
               >
                 Submit
+              </Button>
+              <br />
+              <br /><br />
+              <Button
+                variant="contained"
+                onClick={() => history("/rooms")}
+                color="primary"
+                sx={{ height: 40 }}
+              >
+                Home
               </Button>
             </Box>
           </Box>

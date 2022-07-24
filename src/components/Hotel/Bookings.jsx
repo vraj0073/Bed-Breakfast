@@ -4,12 +4,33 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Button from "react-bootstrap/Button";
+import { useNavigate } from "react-router-dom";
 
 const Bookings = () => {
   const [upcomingBookings, setUpcomingBookings] = React.useState();
   const [pastBookings, setPastBookings] = React.useState();
+  const history = useNavigate();
+  const [tomDate, setTomDate] = React.useState();
+  const [yesDate, setYesDate] = React.useState();
 
   React.useEffect(() => {
+
+    if(!localStorage.getItem("token")) {
+      history("/login");
+    }
+
+    const today = new Date()
+    const tomorrow = new Date(today)
+    tomorrow.setDate(tomorrow.getDate() + 1)
+    setTomDate(tomorrow);
+    
+
+     const yesterday = new Date(today)
+     yesterday.setDate(yesterday.getDate() - 1)
+    setYesDate(yesterday);
+
+    console.log(today);
+    console.log(tomorrow);
     // Upcoming bookings
     axios({
       method: "post",
@@ -17,10 +38,11 @@ const Bookings = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      data: { userId: "user1" },
+      data: { userId: localStorage.getItem('username') },
     }).then((res) => {
       console.log(res["data"]);
       setUpcomingBookings(res["data"]["upcoming_bookings"]);
+      console.log(new Date(res["data"]["upcoming_bookings"][1]["BookingFrom"]))
     });
 
     // Past bookings
@@ -73,7 +95,7 @@ const Bookings = () => {
               </div>
               <div className="row">
                 <div className="col-lg-12 history-title div-10">
-                  Booking ID : {booking.BookingId} &nbsp; | &nbsp; Total Rooms:{" "}
+                  Booking ID : {booking.BookingId} &nbsp; | &nbsp; Total Rooms: {booking.TotalRooms}
                   &nbsp;|&nbsp; Dates : {booking.BookingFrom} -{" "}
                   {booking.BookingTo}
                 </div>
@@ -113,6 +135,45 @@ const Bookings = () => {
                 >
                   Cancel Booking
                 </Button>
+                &nbsp;&nbsp;
+                <Button
+                  variant="contained"
+                  onClick={() => {
+                    history("/tour");
+                  }}
+                  style={{
+                    borderRadius: 5,
+                    backgroundColor: "#0081a7",
+                    marginTop: 10,
+                    color: "white",
+                    fontSize: "16px",
+                    color: "white",
+                    fontWeight: 700,
+                  }}
+                >
+                  Request Tour
+                </Button>
+                &nbsp;&nbsp;
+                {new Date(booking.BookingFrom) >= yesDate
+                 && new Date(booking.BookingFrom) <= tomDate 
+                 && <Button
+                  variant="contained"
+                  onClick={() => {
+                    localStorage.setItem("bookingid",booking.BookingId)
+                    history("/kitchenBooking");
+                  }}
+                  style={{
+                    borderRadius: 5,
+                    backgroundColor: "#0081a7",
+                    marginTop: 10,
+                    color: "white",
+                    fontSize: "16px",
+                    color: "white",
+                    fontWeight: 700,
+                  }}
+                >
+                  Order Meal
+                </Button>}
               </div>
               <br />
             </div>
@@ -138,12 +199,31 @@ const Bookings = () => {
                   <div className="row">
                     <div className="col-lg-12 history-title div-10">
                       Booking ID : {booking.BookingId} &nbsp; | &nbsp; Total
-                      Rooms: &nbsp;|&nbsp; Dates : {booking.BookingFrom} -{" "}
+                      Rooms: {booking.TotalRooms} &nbsp;|&nbsp; Dates : {booking.BookingFrom} -{" "}
                       {booking.BookingTo}
                     </div>
                   </div>
 
-                  <div className="div-10"></div>
+                  <div className="div-10">
+                  <Button
+                  variant="contained"
+                  onClick={() => {
+                    localStorage.setItem("bookingid",booking.BookingId)
+                    history("/feedback");
+                  }}
+                  style={{
+                    borderRadius: 5,
+                    backgroundColor: "#0081a7",
+                    marginTop: 10,
+                    color: "white",
+                    fontSize: "16px",
+                    color: "white",
+                    fontWeight: 700,
+                  }}
+                >
+                  Give Feedback
+                </Button>
+                  </div>
                   <br />
                 </div>
               </div>
@@ -157,7 +237,7 @@ const Bookings = () => {
         variant="contained"
         sx={{ mt: 3, mb: 2 }}
       >
-        Back
+        Home
       </Button>
     </div>
   );

@@ -88,7 +88,7 @@ const Cipher = () => {
         localStorage.setItem("username", UserName);
         localStorage.setItem("email", Email);
         alert("Login Sucessful");
-        history("/bookings");   
+        history("/rooms");   
       })
       .catch(function (error) {
         console.log(error);
