@@ -49,6 +49,9 @@ const Registration = () => {
   const [Firstname, setFirstname] = useState('');
   const [Passwordmessage, setPasswordMessage] = useState('');
   const [Confirmmessage, setConfirmMessage] = useState('');
+  let [showChat, setShowChat] = useState(false);
+  const startChat = () => { setShowChat(true); }
+  const hideChat = () => { setShowChat(false); }
   const validateFirstname = (e) => {
     const firstname = e.target.value;
     setFirstname(firstname)
@@ -310,6 +313,18 @@ const validateSubmit = (props)=>{
           }}
         />
       </Grid>
+      <div className = "bot">
+        <div style ={{display: showChat ? "" : "none"}}>
+        {/* <iframe src="https://d2caie5x8agj5e.cloudfront.net/index.html"></iframe> */}
+        </div>      
+        <div className="botSize"> {showChat ?  <iframe src="https://d2caie5x8agj5e.cloudfront.net/index.html" ></iframe> : null} </div>
+        <div>
+          {!showChat 
+            ? <button className="btn" onClick={() => startChat()}>click to chat... </button> 
+            : <button className="btn" onClick={() => hideChat()}>click to hide... </button>}
+        </div>
+      </div>   
+      {/* <iframe src="https://d2caie5x8agj5e.cloudfront.net/index.html" style="width: 400px; height: 600px;"></iframe> */}
     </ThemeProvider>
   );
 };
