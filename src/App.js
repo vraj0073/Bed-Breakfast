@@ -26,8 +26,24 @@ import Tour4 from "./components/Hotel/Tour4";
 import Tour5 from "./components/Hotel/Tour5";
 import Feedback from "./components/Feedback/Feedback";
 import Invoice from "./components/Hotel/Invoice";
+import React, { useEffect } from "react";
+import firebase from "./firebase";
 
 function App() {
+  useEffect(() => {
+    const messaging = firebase.messaging();
+    messaging
+      .requestPermission()
+      .then(() => {
+        return messaging.getToken();
+      })
+      .then((token) => {
+        console.log("Token : ", token);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
   return (
     <div className="App">
       <div className="Header">{/* <Navbar /> */}</div>
