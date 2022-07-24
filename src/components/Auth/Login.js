@@ -39,6 +39,9 @@ const Login = () => {
     const history = useNavigate();
     const [Email, setEmail] = useState('');
     const [Password, setPassword] = useState('');
+    let [showChat, setShowChat] = useState(false);
+  const startChat = () => { setShowChat(true); }
+  const hideChat = () => { setShowChat(false); }
     const validateEmail = (e) => {
         const email = e.target.value;
     setEmail(email)
@@ -208,6 +211,17 @@ const Login = () => {
           }}
         />
       </Grid>
+      <div className = "bot">
+        <div style ={{display: showChat ? "" : "none"}}>
+        {/* <iframe src="https://d2caie5x8agj5e.cloudfront.net/index.html"></iframe> */}
+        </div>      
+        <div className="botSize"> {showChat ?  <iframe style={{width: "450px", height: "600px"}} src="https://d2caie5x8agj5e.cloudfront.net/index.html" ></iframe> : null} </div>
+        <div>
+          {!showChat 
+            ? <button className="btn" onClick={() => startChat()}>click to chat... </button> 
+            : <button className="btn" onClick={() => hideChat()}>click to hide... </button>}
+        </div>
+      </div> 
     </ThemeProvider>
   );
 };

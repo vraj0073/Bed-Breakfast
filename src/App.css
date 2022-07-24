@@ -28,6 +28,27 @@
   color: #61dafb;
 }
 
+.bot {
+  bottom: 0;
+  right : 0;
+  position: fixed;
+  width: 450px;
+}
+/* \.botSize {
+  bottom: 0;
+  right : 0;
+  position: fixed;
+  width: 450px;
+  height: 550px;
+} */
+.btn {
+  font-size: 20px;
+  float: right;
+  width: 100%;
+  padding: 8px;
+  background-color: rgb(68, 109, 207)
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
