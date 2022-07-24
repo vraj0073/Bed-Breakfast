@@ -215,7 +215,7 @@ const Login = () => {
         <div style ={{display: showChat ? "" : "none"}}>
         {/* <iframe src="https://d2caie5x8agj5e.cloudfront.net/index.html"></iframe> */}
         </div>      
-        <div className="botSize"> {showChat ?  <iframe src="https://d2caie5x8agj5e.cloudfront.net/index.html" ></iframe> : null} </div>
+        <div className="botSize"> {showChat ?  <iframe style={{width: "450px", height: "600px"}} src="https://d2caie5x8agj5e.cloudfront.net/index.html" ></iframe> : null} </div>
         <div>
           {!showChat 
             ? <button className="btn" onClick={() => startChat()}>click to chat... </button> 

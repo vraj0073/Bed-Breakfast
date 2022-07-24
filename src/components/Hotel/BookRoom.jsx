@@ -20,6 +20,7 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -91,6 +92,9 @@ const BookRoom = (props) => {
   const [res, setRes] = React.useState({});
   const [roomString, setRoomString] = React.useState("");
 
+  let [showChat, setShowChat] = useState(false);
+  const startChat = () => { setShowChat(true); }
+  const hideChat = () => { setShowChat(false); }
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -285,6 +289,17 @@ const BookRoom = (props) => {
         </Box>
         <Copyright sx={{ mt: 2, mb: 4 }} />
       </Container>
+      <div className = "bot">
+        <div style ={{display: showChat ? "" : "none"}}>
+        {/* <iframe src="https://d2caie5x8agj5e.cloudfront.net/index.html"></iframe> */}
+        </div>      
+        <div className="botSize"> {showChat ?  <iframe style={{width: "450px", height: "600px"}} src="https://d1slt2ls003kt3.cloudfront.net/" ></iframe> : null} </div>
+        <div>
+          {!showChat 
+            ? <button className="btn" onClick={() => startChat()}>click to chat... </button> 
+            : <button className="btn" onClick={() => hideChat()}>click to hide... </button>}
+        </div>
+      </div>  
     </ThemeProvider>
   );
 };

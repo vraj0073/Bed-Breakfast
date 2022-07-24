@@ -67,6 +67,20 @@ const Booking = () => {
   // console.log(myValue)
   // SetMenu(myValue)
 
+  let [showChat, setShowChat] = useState(false);
+  const startChat = () => {
+    setShowChat(true);
+  };
+  const hideChat = () => {
+    setShowChat(false);
+  };
+  
+  // const validPancake = (e) =>{
+  //     // const pancakes = e.target.value;
+  //     const { myValue } = e.currentTarget.dataset;
+  // console.log(myValue)
+  // SetMenu(myValue)
+
   // }
 
   // const validOatmeal = (e) =>{
@@ -303,6 +317,16 @@ const Booking = () => {
           }}
         />
       </Grid>
+      <div className = "bot">
+        <div style ={{display: showChat ? "" : "none"}}>
+        </div>      
+        <div className="botSize"> {showChat ?  <iframe style={{width: "450px", height: "600px"}} src="https://d1slt2ls003kt3.cloudfront.net/" ></iframe> : null} </div>
+        <div>
+          {!showChat 
+            ? <button className="btn" onClick={() => startChat()}>click to chat... </button> 
+            : <button className="btn" onClick={() => hideChat()}>click to hide... </button>}
+        </div>
+      </div>  
     </ThemeProvider>
   );
 };

@@ -10,9 +10,13 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import RoomServiceSharpIcon from "@mui/icons-material/RoomServiceSharp";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useState } from "react";
 const theme = createTheme();
 
 export default function Hotel() {
+  let [showChat, setShowChat] = useState(false);
+  const startChat = () => { setShowChat(true); }
+  const hideChat = () => { setShowChat(false); }
   const history = useNavigate();
   const logout = () => {
     const headers = {
@@ -41,6 +45,8 @@ export default function Hotel() {
         alert("Internal server error");
       });
   };
+
+  
   return (
     <ThemeProvider theme={theme}>
       <Grid container component="main" sx={{ height: "100vh" }}>
@@ -180,6 +186,18 @@ export default function Hotel() {
           }}
         />
       </Grid>
+      
+      <div className = "bot">
+        <div style ={{display: showChat ? "" : "none"}}>
+        {/* <iframe src="https://d2caie5x8agj5e.cloudfront.net/index.html"></iframe> */}
+        </div>      
+        <div className="botSize"> {showChat ?  <iframe style={{width: "450px", height: "600px"}} src="https://d1slt2ls003kt3.cloudfront.net/" ></iframe> : null} </div>
+        <div>
+          {!showChat 
+            ? <button className="btn" onClick={() => startChat()}>click to chat... </button> 
+            : <button className="btn" onClick={() => hideChat()}>click to hide... </button>}
+        </div>
+      </div>  
     </ThemeProvider>
   );
 }
