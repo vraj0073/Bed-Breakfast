@@ -63,7 +63,7 @@ const Tour = () => {
           numberOfPeoples,
           tourType,
           date,
-          place,
+          place: "Halifax",
         }
       )
       .then(() => {
