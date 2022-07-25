@@ -1,0 +1,21 @@
+{
+  "type": "service_account",
+
+  "project_id": "polished-trail-340322",
+
+  "private_key_id": "996086a94fba2b6cc67184711fccc7d8c2b1405c",
+
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC1ZWcG2gNi3PCc\nneuOmVlrH9mnynJBrr43TeIguzoUz5OvNWZNhr3xtFkGRvNZ+5LDZiQ+bPsILtuo\nD6E2/Rzb9r7HP5WpfEvkszY6jSZD4A0lDI1p4aEksWXqCF8KJUCTaOB53or7V0/P\nnAiUu2yKtjugEW2WPL3+tjM9Ah9RkVPJp9IXZpZ04alIw3sd+YaeSY0TqfBE4hqY\nltSbLTHZR5qawIdux6VGJKwmdrFevkoJx/OPpVUCrXxpOja1FIlafRWJoaQom2ea\nH2M+PjPSCNNokjAyE/fsVEKT7YX+FuEgVOc4oo2m9d1HKxU4L18ZfYO98mlA2Fs7\nzcme9S9lAgMBAAECggEABe0LIZkrtSYcojEyidUOq8Y9mRKvCuBHjIz5zzHuotFp\nNLcc4Xl+aRAIPIFC3/StBb8nffaXeNv3BxWDocVBFRqJfv7fx8qsvArywZTs5BjE\ntSok0ImzdvxopO2jFTTEWEx70N9pUO64R8MEML+yuxFa/06ycs8HMfQH1n1kQojb\nrgyAAsAIQLqjmisrWDEVysfQTmU3uckfBWePlJ6sa9mSTmdcjL+UoRboULnucaFY\nhwSByWblGLMVNxu+e6ojxGtdyvunzCgMAzeZZjaEV4P2cToGUm94fJtoNrukEZGS\nXOkSwwQFk5GIxDNc/yc4yXMD75HwAqytocg4Ef6cgQKBgQD1V2t3urXiK8ATA7XI\nOi6aGsdt8OaVLEO5UZ0HpUpoNCmgUGCEiYNFuKf39ELdBSF6KrESBGLmkQMwNkF9\nxLVWDTOaiWxtyswUxYhk9OgbNV9SrHPouGwt0P08BG6hn9eQ7qsfcH0wMWI/HFcP\nKIq2BqXzZEKNfs5IVTzh86/5RQKBgQC9Rs9q1TZDjzZaRLjcsj08KeCw/I66/bvR\nQHML89KkCY6YIFN2RIyMblWs8jPtwFk8ZddLBBBFmXXvoPsppRZzNIUe49DrTH2j\nB8/0YnTCZdzNtyj5lHbGZA0nESCTJ6WN1alXYAavLL6+H8/vR+9HiydFbejS9MY9\nptpWuWrvoQKBgQDSxQ1wSJjk+s0CCNfscf+DKKpXyvNtCCAOXwzWeqvXpah1L1gb\nxL9f8Gls3Q1sL3I5L9/7KIWGquHgU1wkHg/jI2hHxPO/xs9YsPKiOLwGU+3Wao0R\nSw60taw4GV6pv1ZEDqY4Vj1WX7aVnVU1kpDIHCIJXQLH6D5zabbqLp3pOQKBgDKq\nbMVVM4RcJpl9QdrZ32hmcV4PDQni986oqOMvLlh4snHoXU8QRGsm8cosv1fKIFj5\njernuI9Y5+fwOKtKJLtL+MJvCzKhNBRa+ACcBlMvPy7V86LzaePrTlYB0K1zdG6G\nHiFkdAWaPajZDSkpIVUOW8HLDQLDQPmp21JRqd1hAoGBAOWQJOJSiiLPagt4+66g\nOcZIzo0j9YHV+OaT4Oa55k2FnW5ESaXGwKGNsG3QO5SyJI8BnWJS3Qpbxroe8cBW\npxVj17gfu0icwKN8pkmeFSy2tYHhLUhEBpPhwnpZvn2F1U2lpGlwVKBjY/CDI7hq\nPadjeEQ1YxUos3BeEpvJFNsn\n-----END PRIVATE KEY-----\n",
+
+  "client_email": "firebase-adminsdk-mxi49@polished-trail-340322.iam.gserviceaccount.com",
+
+  "client_id": "115025919207115697290",
+
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+
+  "token_uri": "https://oauth2.googleapis.com/token",
+
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-mxi49%40polished-trail-340322.iam.gserviceaccount.com"
+}
