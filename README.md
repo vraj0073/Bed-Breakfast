@@ -1,3 +1,1 @@
-Diagram
-
-Description automatically generated
+An operational serverless hybrid cloud-based application that enables users to log in using multi-factor authentication, reserve hotel rooms, place breakfast orders, recommend the most cost-effective option to the customer, and offer chat support.
